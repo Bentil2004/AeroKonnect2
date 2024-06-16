@@ -12,9 +12,9 @@ const HomeScreen = () => {
   const navigation = useNavigation();
   const [likedItems, setLikedItems] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredData, setFilteredData] = useState(null); 
+  const [filteredData, setFilteredData] = useState(null);
 
-  const scrollY = useRef(new Animated.Value(0)).current; 
+  const scrollY = useRef(new Animated.Value(0)).current;
 
   const onBellOutlinePressed = () => {
     navigation.navigate("Notification");
@@ -77,7 +77,7 @@ const HomeScreen = () => {
   const getKeyExtractor = (prefix) => (item) => `${prefix}-${item.id}`;
 
   const navigateToChatScreen = () => {
-    navigation.navigate('AIChatScreen');
+    navigation.navigate('AIChat');
   };
 
   return (
@@ -102,9 +102,6 @@ const HomeScreen = () => {
             icon={<MaterialCommunityIcons name="magnify" size={20} color="#7D7D7D" />}
             onChangeText={updateSearch} // Update search query on input change
           />
-          <TouchableOpacity style={styles.aiIcon} onPress={navigateToChatScreen}> 
-            <Image source={require("../../assets/aiassistant.png")} style={{ width: 60, height: 60 }} />
-          </TouchableOpacity>
         </View>
 
         <Animated.ScrollView
@@ -182,6 +179,10 @@ const HomeScreen = () => {
             </>
           )}
         </Animated.ScrollView>
+        {/* AI Assistant Icon */}
+        <TouchableOpacity style={styles.aiIcon} onPress={navigateToChatScreen}>
+          <Image source={require("../../assets/aiassistant.png")} style={styles.aiImage} />
+        </TouchableOpacity>
       </SafeAreaView>
     </GestureHandlerRootView>
   );
@@ -221,7 +222,7 @@ const styles = StyleSheet.create({
   },
   itemContainer: {
     position: "relative",
-    paddingBottom:30,
+    paddingBottom: 30,
   },
   image: {
     width: 187,
@@ -252,8 +253,15 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   aiIcon: {
-    marginLeft: 10,
-    padding: 10,
+    position: "absolute",
+    bottom: 100, 
+    right: 20,
+    zIndex: 10,
+  },
+  aiImage: {
+    width: 60,
+    height: 60,
+    resizeMode: "contain",
   },
 });
 
