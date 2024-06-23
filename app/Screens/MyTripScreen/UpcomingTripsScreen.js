@@ -1,76 +1,62 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, TextInput, Modal, Dimensions } from "react-native";
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, TextInput, Modal, Dimensions } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
-import CustomButton from "../../components/CustomButton";
+import CustomButton from '../../components/CustomButton';
+import UpcomingTrips from '../MyTripScreen/UpcomingTrip';
 
-const { width, height } = Dimensions.get('window');
-
-const UpcomingTrips = ({ trips }) => (
-  <View style={styles.tripsContainer}>
-    {trips.length === 0 ? (
-      <Text style={styles.noFlightText}>No upcoming trips available</Text>
-    ) : (
-      trips.map((trip, index) => (
-        <View key={index} style={styles.tripDetails}>
-          <Text style={styles.tripText}>Booking Code: {trip.reservationCode}</Text>
-          <Text style={styles.tripText}>Surname: {trip.surname}</Text>
-        </View>
-      ))
-    )}
-  </View>
-);
+const { width } = Dimensions.get('window');
 
 const UpcomingTripsScreen = ({ navigation }) => {
   const [isModalVisible, setModalVisible] = useState(false);
-  const [reservationCode, setReservationCode] = useState("");
-  const [surname, setSurname] = useState("");
+  const [reservationCode, setReservationCode] = useState('');
+  const [surname, setSurname] = useState('');
   const [upcomingTrips, setUpcomingTrips] = useState([]);
-
-  const handleMyTripPress = () => {
-    navigation.navigate("MyTripScreen");
-  };
-
-  const handleSignIn = () => {
-    navigation.navigate("SignUp");
-  };
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
 
   const handleAddTrip = () => {
-    const newTrip = { reservationCode, surname };
+    const newTrip = {
+      reservationCode,
+      surname,
+      firstName: 'John',
+      origin: 'JFK',
+      destination: 'LAX', 
+      originCity: 'New York',
+      destinationCity: 'Los Angeles',
+      details: 'Flight details here', 
+      departureDate: '2024-07-20', 
+      ticketed: true 
+    };
     setUpcomingTrips([...upcomingTrips, newTrip]);
-    setReservationCode("");
-    setSurname("");
+    setReservationCode('');
+    setSurname('');
     toggleModal();
+  };
+
+  const handleDeleteTrip = (index) => {
+    setUpcomingTrips(upcomingTrips.filter((_, i) => i !== index));
   };
 
   return (
     <SafeAreaView style={styles.safeContainer}>
+      <Text style={styles.text}>MY TRIP</Text>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('MyTripScreen')}
+        >
+          <Text style={[styles.buttonText, styles.selectedText]}>Past</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.button, styles.selectedButton]}
+        >
+          <Text style={styles.buttonText}>Upcoming</Text>
+        </TouchableOpacity>
+      </View>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <Text style={styles.text}>MY TRIP</Text>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={[
-              styles.button,
-            ]}
-            onPress={handleMyTripPress}
-          >
-            <Text style={[styles.buttonText, styles.selectedText]}>Past</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.button,
-              styles.selectedButton
-            ]}
-          >
-            <Text style={[styles.buttonText]}>Upcoming</Text>
-          </TouchableOpacity>
-        </View>
-        
-        <UpcomingTrips trips={upcomingTrips} />
-
+        <UpcomingTrips trips={upcomingTrips} handleDeleteTrip={handleDeleteTrip} navigation={navigation} />
         <View style={styles.bookNowButtonContainer}>
           <CustomButton 
             text="Book Now"
@@ -87,20 +73,7 @@ const UpcomingTripsScreen = ({ navigation }) => {
             onPress={toggleModal}
           />
         </View>
-        {/* <View style={styles.signInContainer}>
-          <TouchableOpacity onPress={handleSignIn}>
-            <Text style={styles.Link}>Sign in</Text>
-          </TouchableOpacity>
-          <Text style={styles.Text}> to view your trip</Text>
-        </View> */}
-        {upcomingTrips.length === 0 && (
-          <View style={styles.noFlightContainer}>
-            <FontAwesome5 name="plane-slash" size={50} color="#00527E" />
-            <Text style={styles.noFlightText}>No trip available</Text>
-          </View>
-        )}
       </ScrollView>
-
       <Modal
         visible={isModalVisible}
         transparent={true}
@@ -150,30 +123,17 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 15,
     top: "5%",
-    zIndex: 1,
   },
   scrollViewContent: {
     flexGrow: 1,
-    paddingHorizontal: 6,
+    paddingHorizontal: 16,
     alignItems: "center",
   },
   text: {
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 10,
-  },
-  Text: {
-    fontSize: 16,
-    color: "black",
-  },
-  signInContainer: {
-    flexDirection: "row",
-    position: "absolute",
-    bottom: "20%",
-    textAlign: "center",
-    marginVertical: 20,
-    alignItems: "center",
-    justifyContent: "center",
+    textAlign: 'center',
   },
   buttonContainer: {
     flexDirection: "row",
@@ -184,14 +144,12 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     overflow: 'hidden',
     padding: 10,
-    zIndex: 2,
   },
   button: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
     borderColor: "#00527E",
-    zIndex: 3,
   },
   selectedButton: {
     backgroundColor: "#00527E",
@@ -208,32 +166,12 @@ const styles = StyleSheet.create({
     color: "black",
   },
   bookNowButtonContainer: {
-    position: 'absolute',
-    bottom: "35%", 
-    width: 381,
-    height: 67,
-    left: 0,
-    right: 0,
+    width: '100%',
     alignItems: 'center',
-  },
-  Link: {
-    fontSize: 16,
-    color: "#00527E",
-    textDecorationLine: "underline",
-  },
-  noFlightContainer: {
-    position: "absolute",
-    width: "70%",
-    height: "50%",
-    top: "5%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  noFlightText: {
-    marginTop: 10,
-    fontSize: 20,
-    color: "#00527E",
-    textAlign: "center",
+    top: 100,
+    paddingBottom: 200
+    
+
   },
   modalContainer: {
     flex: 1,
@@ -264,19 +202,6 @@ const styles = StyleSheet.create({
   },
   modalButton: {
     marginTop: 10,
-  },
-  tripsContainer: {
-    marginTop: 20,
-  },
-  tripDetails: {
-    marginBottom: 10,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 5,
-  },
-  tripText: {
-    fontSize: 16,
   },
 });
 
