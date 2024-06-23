@@ -30,6 +30,7 @@ import MyAccountUser from "../app/Screens/ProfileScreen/MyAccountUser";
 import ManageAccount from "../app/Screens/ProfileScreen/ManageAccount";
 import ProfileDetails from "../app/Screens/ProfileScreen/ProfileDetails";
 import AIChatScreen from "../app/Screens/AIChatScreen/AIChatScreen";
+import Oneway from "../app/Screens/Oneway/oneway"; 
 
 const Stack = createNativeStackNavigator();
 
@@ -52,6 +53,7 @@ const MainStackNavigator = () => {
         <Stack.Screen name="ManageAccount" component={ManageAccount} />
         <Stack.Screen name="ProfileDetails" component={ProfileDetails} />
         <Stack.Screen name="AIChat" component={AIChatScreen} />
+        <Stack.Screen name="Oneway" component={Oneway} />
         <Stack.Screen
           name="ForgotPasswordEmail"
           component={ForgotPasswordEmail}
