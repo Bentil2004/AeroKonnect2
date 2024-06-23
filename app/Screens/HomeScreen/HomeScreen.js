@@ -104,6 +104,10 @@ const HomeScreen = () => {
           />
         </View>
 
+        <TouchableOpacity style={styles.bookFlightButton}>
+          <Text style={styles.bookFlightButtonText}>Book a flight</Text>
+        </TouchableOpacity>
+
         <Animated.ScrollView
           contentContainerStyle={styles.scrollContainer}
           onScroll={Animated.event(
@@ -213,8 +217,23 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 10,
     paddingHorizontal: 16,
+  },
+  bookFlightButton: {
+    borderRadius: 10,
+    paddingVertical: 12,
+    //paddingHorizontal: 2,
+    alignItems: "center",
+    borderColor: "#00527e",
+    borderWidth:1.5,
+    justifyContent: "center",
+    marginHorizontal: 16,
+    marginBottom: 20,
+  },
+  bookFlightButtonText: {
+    color: "#00527e",
+    fontSize: 16,
   },
   flatListContainer: {
     paddingHorizontal: 16,
@@ -254,7 +273,7 @@ const styles = StyleSheet.create({
   },
   aiIcon: {
     position: "absolute",
-    bottom: 100, 
+    bottom: 100,
     right: 20,
     zIndex: 10,
   },
