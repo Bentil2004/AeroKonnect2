@@ -79,7 +79,9 @@ const HomeScreen = () => {
   const navigateToChatScreen = () => {
     navigation.navigate('AIChat');
   };
-
+const Book = function(){
+navigation.navigate('Oneway');
+}; 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaView style={styles.container}>
@@ -104,7 +106,7 @@ const HomeScreen = () => {
           />
         </View>
 
-        <TouchableOpacity style={styles.bookFlightButton}>
+        <TouchableOpacity onPress={Book} style={styles.bookFlightButton}>
           <Text style={styles.bookFlightButtonText}>Book a flight</Text>
         </TouchableOpacity>
 
