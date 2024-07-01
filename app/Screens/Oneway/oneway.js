@@ -38,7 +38,7 @@ const OneWay = function({ navigation }){
             <Image
               style={styles.chevronBackwardIcon}
               resizeMode="cover"
-              source={require('./../Assets/backward.png')}
+              source={require('../../assets/images/backward.png')}
             />
             </TouchableOpacity>
           </View>
@@ -57,9 +57,6 @@ const OneWay = function({ navigation }){
      </View>
 
  </View>  
-
-
-
 
 
 

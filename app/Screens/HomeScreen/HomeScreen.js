@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   heartIconLiked: {
-    backgroundColor: "rgba(255, 0, 0, 0.5)",
+    backgroundColor: "red",
   },
   sectionTitle: {
     fontSize: 18,

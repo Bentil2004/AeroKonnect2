@@ -34,9 +34,9 @@ const MyTripScreen = ({ navigation, isLoggedIn }) => {
     navigation.navigate("SignUp");
   };
 
-  //const handleBookNow = () => {
-   // navigation.navigate("BookNow");
-  //};
+  const handleBookNow = () => {
+    navigation.navigate("BookNow");
+  };
 
   return (
     <SafeAreaView style={styles.safeContainer}>
