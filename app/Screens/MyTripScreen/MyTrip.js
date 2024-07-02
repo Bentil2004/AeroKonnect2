@@ -35,7 +35,7 @@ const MyTripScreen = ({ navigation, isLoggedIn }) => {
   };
 
   const handleBookNow = () => {
-    navigation.navigate("BookNow");
+    navigation.navigate("OneWay");
   };
 
   return (

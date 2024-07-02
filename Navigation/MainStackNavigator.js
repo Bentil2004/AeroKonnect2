@@ -32,6 +32,8 @@ import ProfileDetails from "../app/Screens/ProfileScreen/ProfileDetails";
 import AIChatScreen from "../app/Screens/AIChatScreen/AIChatScreen";
 import Oneway from "../app/Screens/Oneway/oneway"; 
 import TripDetails from "../app/Screens/MyTripScreen/TripDetails";
+import PassengersDetails from "../app/Screens/ExploreScreen/PassengersDetails";
+import SeatSelection from "../app/Screens/ExploreScreen/SeatSelection";
 
 
 const Stack = createNativeStackNavigator();
@@ -56,7 +58,9 @@ const MainStackNavigator = () => {
         <Stack.Screen name="ProfileDetails" component={ProfileDetails} />
         <Stack.Screen name="AIChat" component={AIChatScreen} />
         <Stack.Screen name="Oneway" component={Oneway} />
+        <Stack.Screen name="PassengersDetails" component={PassengersDetails} />
         <Stack.Screen name="TripDetails" component={TripDetails} />
+        <Stack.Screen name="SeatSelection" component={SeatSelection} />
         <Stack.Screen
           name="ForgotPasswordEmail"
           component={ForgotPasswordEmail}
