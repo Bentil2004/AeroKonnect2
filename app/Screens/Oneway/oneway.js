@@ -1,7 +1,7 @@
 import React from 'react';
 import  { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TextInput,  View,Image } from 'react-native';
+import { StyleSheet, Text, TextInput,  View,Image,TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-elements';
 
 
@@ -38,7 +38,7 @@ const OneWay = function({ navigation }){
             <Image
               style={styles.chevronBackwardIcon}
               resizeMode="cover"
-              source={require('./../Assets/backward.png')}
+              source={require('../../assets/images/backward.png')}
             />
             </TouchableOpacity>
           </View>
@@ -57,9 +57,6 @@ const OneWay = function({ navigation }){
      </View>
 
  </View>  
-
-
-
 
 
 
