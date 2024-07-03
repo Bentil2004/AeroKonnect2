@@ -43,7 +43,7 @@ style={styles.topback}
             <Image
               style={styles.chevronBackwardIcon}
               resizeMode="cover"
-              source={require('./../assets/backward.png')}
+              
             />
             </TouchableOpacity>
           </View>
@@ -62,9 +62,6 @@ style={styles.topback}
      </View>
 
  </View>  
-
-
-
 
 
 

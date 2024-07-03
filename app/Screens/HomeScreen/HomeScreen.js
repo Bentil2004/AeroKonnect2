@@ -79,9 +79,13 @@ const HomeScreen = () => {
   const navigateToChatScreen = () => {
     navigation.navigate('AIChat');
   };
+
+
 const Book = function(){
 navigation.navigate('Oneway');
 }; 
+
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaView style={styles.container}>
@@ -259,9 +263,9 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 4,
   },
-  heartIconLiked: {
-    backgroundColor: "rgba(255, 0, 0, 0.5)",
-  },
+ /* heartIconLiked: {
+    backgroundColor: "red",
+  },*/
   sectionTitle: {
     fontSize: 18,
     fontWeight: "bold",

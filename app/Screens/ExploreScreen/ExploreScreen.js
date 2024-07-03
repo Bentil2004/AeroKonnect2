@@ -1,10 +1,19 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const ExploreScreen = () => {
+  const navigation = useNavigation();
+
+  const onPassengersDetailsPressed = () => {
+    navigation.navigate("PassengersDetails");
+  };
+
   return (
     <View style={styles.container}>
-      <Text>Explore Screen</Text>
+      <TouchableOpacity onPress={onPassengersDetailsPressed}>
+        <Text style={styles.New}>Testing New Page</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -14,6 +23,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  New: {
+    color: 'red',
+    fontSize: 40,
   },
 });
 
