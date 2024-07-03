@@ -5,33 +5,15 @@ import CustomButton from "../../components/CustomButton";
 
 const { width, height } = Dimensions.get('window');
 
-const PastTrips = ({ trips }) => (
-  <View style={styles.tripsContainer}>
-    {trips.length === 0 ? (
-      <Text style={styles.noFlightText}>No past trips available</Text>
-    ) : (
-      trips.map((trip, index) => (
-        <View key={index} style={styles.tripDetails}>
-          <Text style={styles.tripText}>Booking Code: {trip.reservationCode}</Text>
-          <Text style={styles.tripText}>Surname: {trip.surname}</Text>
-        </View>
-      ))
-    )}
-  </View>
-);
 
-const MyTripScreen = ({ navigation }) => {
+const MyTripScreen = ({ navigation, isLoggedIn }) => {
   const [selectedButton, setSelectedButton] = useState("Past");
-  const [isModalVisible, setModalVisible] = useState(false);
-  const [reservationCode, setReservationCode] = useState("");
-  const [surname, setSurname] = useState("");
   const [pastTrips, setPastTrips] = useState([]);
   const [upcomingTrips, setUpcomingTrips] = useState([]);
 
   useEffect(() => {
     const handleOrientationChange = () => {
       const { width: newWidth, height: newHeight } = Dimensions.get('window');
-      // Implement logic based on new width and height if needed
     };
 
     const subscription = Dimensions.addEventListener('change', handleOrientationChange);
@@ -52,24 +34,14 @@ const MyTripScreen = ({ navigation }) => {
     navigation.navigate("SignUp");
   };
 
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
-
-  const handleAddTrip = () => {
-    const newTrip = { reservationCode, surname };
-    if (selectedButton === "Past") {
-      setPastTrips([...pastTrips, newTrip]);
-    }
-    setReservationCode("");
-    setSurname("");
-    toggleModal();
+  const handleBookNow = () => {
+    navigation.navigate("OneWay");
   };
 
   return (
     <SafeAreaView style={styles.safeContainer}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <Text style={styles.text}>MY Trip</Text>
+        <Text style={styles.text}>MY TRIP</Text>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={[
@@ -91,78 +63,32 @@ const MyTripScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         
-        {selectedButton === "Past" && <PastTrips trips={pastTrips} />}
-
-        <View style={styles.bookNowButtonContainer}>
-          <CustomButton 
-            text="Book Now"
-            bg={"#00527e"}
-            fontSize="bold"
-            txt={"white"}
-          />
-          <CustomButton 
-            text="Add a trip"
-            bg={"white"}
-            fontSize="bold"
-            txt={"#00527E"}
-            bordercolor={"#00527E"}
-            onPress={toggleModal}
-          />
-        </View>
-        {/* <View style={styles.signInContainer}>
-          <TouchableOpacity onPress={handleSignIn}>
-            <Text style={styles.Link}>Sign in</Text>
-          </TouchableOpacity>
-          <Text style={styles.Text}> to view your trip</Text>
-        </View> */}
+        {isLoggedIn ? (
+          <View style={styles.bookNowButtonContainer}>
+            <CustomButton 
+              text="Book Now"
+              bg={"#00527e"}
+              fontSize="bold"
+              txt={"white"}
+              onPress={handleBookNow}
+            />
+          </View>
+        ) : (
+          <View style={styles.signInContainer}>
+            <TouchableOpacity onPress={handleSignIn}>
+              <Text style={styles.Link}>Sign up</Text>
+            </TouchableOpacity>
+            <Text style={styles.Text}> to view your trip</Text>
+          </View>
+        )}
+        
         {pastTrips.length === 0 && upcomingTrips.length === 0 && (
           <View style={styles.noFlightContainer}>
-            <FontAwesome5 name="plane-slash" size={50} color="#00527E" />
+            <FontAwesome5 name="plane-slash" size={100} color="#00527E" />
             <Text style={styles.noFlightText}>No trip available</Text>
           </View>
         )}
       </ScrollView>
-
-      <Modal
-        visible={isModalVisible}
-        transparent={true}
-        animationType="slide"
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Add a reservation code</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Booking code"
-              value={reservationCode}
-              onChangeText={setReservationCode}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Surname"
-              value={surname}
-              onChangeText={setSurname}
-            />
-            <CustomButton 
-              text="Add trip"
-              bg={"#00527e"}
-              fontSize="bold"
-              txt={"white"}
-              onPress={handleAddTrip}
-              style={styles.modalButton}
-            />
-            <CustomButton 
-              text="Cancel"
-              bg={"white"}
-              fontSize="bold"
-              txt={"#00527E"}
-              bordercolor={"#00527E"}
-              onPress={toggleModal}
-              style={styles.modalButton}
-            />
-          </View>
-        </View>
-      </Modal>
     </SafeAreaView>
   );
 };
@@ -247,7 +173,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     width: "70%",
     height: "50%",
-    top: "5%",
+    top: "10%",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -256,49 +182,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "#00527E",
     textAlign: "center",
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-  },
-  modalContent: {
-    width: "80%",
-    backgroundColor: "white",
-    borderRadius: 10,
-    padding: 20,
-    alignItems: "center",
-  },
-  modalTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 20,
-  },
-  input: {
-    width: "100%",
-    height: 40,
-    borderColor: "#00527e",
-    borderWidth: 1,
-    borderRadius: 5,
-    marginBottom: 20,
-    paddingHorizontal: 10,
-  },
-  modalButton: {
-    marginTop: 10,
-  },
-  tripsContainer: {
-    marginTop: 20,
-  },
-  tripDetails: {
-    marginBottom: 10,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 5,
-  },
-  tripText: {
-    fontSize: 16,
   },
 });
 

@@ -12,9 +12,9 @@ const HomeScreen = () => {
   const navigation = useNavigation();
   const [likedItems, setLikedItems] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredData, setFilteredData] = useState(null); 
+  const [filteredData, setFilteredData] = useState(null);
 
-  const scrollY = useRef(new Animated.Value(0)).current; 
+  const scrollY = useRef(new Animated.Value(0)).current;
 
   const onBellOutlinePressed = () => {
     navigation.navigate("Notification");
@@ -77,8 +77,14 @@ const HomeScreen = () => {
   const getKeyExtractor = (prefix) => (item) => `${prefix}-${item.id}`;
 
   const navigateToChatScreen = () => {
-    navigation.navigate('AIChatScreen');
+    navigation.navigate('AIChat');
   };
+
+
+const Book = function(){
+navigation.navigate('Oneway');
+}; 
+
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -102,10 +108,11 @@ const HomeScreen = () => {
             icon={<MaterialCommunityIcons name="magnify" size={20} color="#7D7D7D" />}
             onChangeText={updateSearch} // Update search query on input change
           />
-          <TouchableOpacity style={styles.aiIcon} onPress={navigateToChatScreen}> 
-            <Image source={require("../../assets/aiassistant.png")} style={{ width: 60, height: 60 }} />
-          </TouchableOpacity>
         </View>
+
+        <TouchableOpacity onPress={Book} style={styles.bookFlightButton}>
+          <Text style={styles.bookFlightButtonText}>Book a flight</Text>
+        </TouchableOpacity>
 
         <Animated.ScrollView
           contentContainerStyle={styles.scrollContainer}
@@ -182,6 +189,10 @@ const HomeScreen = () => {
             </>
           )}
         </Animated.ScrollView>
+        {/* AI Assistant Icon */}
+        <TouchableOpacity style={styles.aiIcon} onPress={navigateToChatScreen}>
+          <Image source={require("../../assets/aiassistant.png")} style={styles.aiImage} />
+        </TouchableOpacity>
       </SafeAreaView>
     </GestureHandlerRootView>
   );
@@ -212,8 +223,23 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 10,
     paddingHorizontal: 16,
+  },
+  bookFlightButton: {
+    borderRadius: 10,
+    paddingVertical: 12,
+    //paddingHorizontal: 2,
+    alignItems: "center",
+    borderColor: "#00527e",
+    borderWidth:1.5,
+    justifyContent: "center",
+    marginHorizontal: 16,
+    marginBottom: 20,
+  },
+  bookFlightButtonText: {
+    color: "#00527e",
+    fontSize: 16,
   },
   flatListContainer: {
     paddingHorizontal: 16,
@@ -221,7 +247,7 @@ const styles = StyleSheet.create({
   },
   itemContainer: {
     position: "relative",
-    paddingBottom:30,
+    paddingBottom: 30,
   },
   image: {
     width: 187,
@@ -237,9 +263,9 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 4,
   },
-  heartIconLiked: {
-    backgroundColor: "rgba(255, 0, 0, 0.5)",
-  },
+ /* heartIconLiked: {
+    backgroundColor: "red",
+  },*/
   sectionTitle: {
     fontSize: 18,
     fontWeight: "bold",
@@ -252,8 +278,15 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   aiIcon: {
-    marginLeft: 10,
-    padding: 10,
+    position: "absolute",
+    bottom: 100,
+    right: 20,
+    zIndex: 10,
+  },
+  aiImage: {
+    width: 60,
+    height: 60,
+    resizeMode: "contain",
   },
 });
 
