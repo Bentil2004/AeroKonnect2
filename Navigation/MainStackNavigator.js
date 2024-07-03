@@ -34,6 +34,8 @@ import Oneway from "../app/Screens/Oneway/oneway";
 import TripDetails from "../app/Screens/MyTripScreen/TripDetails";
 import PassengersDetails from "../app/Screens/ExploreScreen/PassengersDetails";
 import SeatSelection from "../app/Screens/ExploreScreen/SeatSelection";
+import MultiCity from "../app/Screens/MultiCity/Multicity";
+import RoundTrip from "../app/Screens/RoundTrip/RoundTrip";
 
 
 const Stack = createNativeStackNavigator();
@@ -58,6 +60,8 @@ const MainStackNavigator = () => {
         <Stack.Screen name="ProfileDetails" component={ProfileDetails} />
         <Stack.Screen name="AIChat" component={AIChatScreen} />
         <Stack.Screen name="Oneway" component={Oneway} />
+        <Stack.Screen name="MultiCity" component={MultiCity} />
+        <Stack.Screen name="Home" component={RoundTrip} />
         <Stack.Screen
           name="ForgotPasswordEmail"
           component={ForgotPasswordEmail}
