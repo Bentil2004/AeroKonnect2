@@ -1,7 +1,7 @@
 import React from 'react';
 import  { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TextInput,  View,Image,TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TextInput,  View,Image, Pressable, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-elements';
 
 
@@ -15,13 +15,18 @@ const OneWay = function({ navigation }){
     return(
         <View>
            <StatusBar style="auto" />
-       
-           <View style={styles.column}>
-              <Text style={{color:'#434343'}}>Good Morning,
-                   <Text style={styles.Ama}> Ama</Text>
-               </Text>
-               <Text style={styles.GO}>Where are you going?</Text>
-         </View> 
+<View style={styles.top}>
+
+ <TouchableOpacity>
+ <Image
+style={styles.topback}
+ source={require('./../assets/Baackward.png')}
+   />
+ </TouchableOpacity>
+<Text style={styles.book}>
+  Book your flight
+</Text>
+</View>
          <View style={styles.mainbut}>
             <Button  buttonStyle={{ backgroundColor: '#00527E', borderRadius: 8,padding:5 , width:111 }}
              onPress={OneWay} titleStyle={{bottom:1,}}  title='One-Way' />
@@ -34,11 +39,11 @@ const OneWay = function({ navigation }){
 
          <View style={styles.economyParent}>
             <Text style={[styles.economy, styles.economyTypo]}>Economy</Text>
-            <TouchableOpacity>
+           <TouchableOpacity>
             <Image
               style={styles.chevronBackwardIcon}
               resizeMode="cover"
-              source={require('../../assets/images/backward.png')}
+              
             />
             </TouchableOpacity>
           </View>
@@ -70,7 +75,24 @@ const styles = StyleSheet.create({
       alignItems:'center',
       marginTop:80,
     },
+topback:{
+height:29,
+width:29,
+},
 
+book:{
+fontSize: 18,
+color:'#434343',
+},
+top:{
+display:'flex',
+flexDirection:'row',
+
+gap:103,
+alignItems:'center',
+top:'20%',
+left:'3%',
+},
     economyParent: {
       width: 121,
       height: 41,
@@ -181,7 +203,7 @@ const styles = StyleSheet.create({
       width:'90%',
       backgroundColor:'#E4EAF1',
       borderRadius:12,
-      marginTop:'5%',
+      marginTop:'25%',
       padding:8,
       display:'flex',
       flexDirection:'row',
