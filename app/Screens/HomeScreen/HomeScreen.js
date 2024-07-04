@@ -1,10 +1,30 @@
 import React, { useState, useRef } from "react";
-import { StyleSheet, Text, View, SafeAreaView, Dimensions, TouchableOpacity, FlatList, Image, Animated } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  Dimensions,
+  TouchableOpacity,
+  FlatList,
+  Image,
+  Animated,
+  Platform,
+} from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import CustomInput from "../../components/CustomInput";
 import { useNavigation } from "@react-navigation/native";
-import { data, data2, data3, recreationalSitesData } from "../../Data";
-import { GestureHandlerRootView, TapGestureHandler, State } from "react-native-gesture-handler";
+import {
+  data,
+  data2,
+  data3,
+  recreationalSitesData,
+} from "../../Data";
+import {
+  GestureHandlerRootView,
+  TapGestureHandler,
+  State,
+} from "react-native-gesture-handler";
 
 const { height } = Dimensions.get("window");
 
@@ -31,7 +51,7 @@ const HomeScreen = () => {
   const updateSearch = (text) => {
     setSearchQuery(text);
     // Filter data based on search query
-    const filtered = data.concat(data2, data3, recreationalSitesData).filter(item =>
+    const filtered = data.concat(data2, data3, recreationalSitesData).filter((item) =>
       item.name.toLowerCase().includes(text.toLowerCase())
     );
     setFilteredData(filtered.length > 0 ? filtered : null);
@@ -65,7 +85,11 @@ const HomeScreen = () => {
           </View>
         </TapGestureHandler>
         <TouchableOpacity
-          onPress={() => navigation.navigate('PopularDestination', { destination: item })}
+          onPress={() =>
+            navigation.navigate("PopularDestination", {
+              destination: item,
+            })
+          }
         >
           <Text>{item.name}</Text>
           <Text>Price ${item.id}</Text>
@@ -77,14 +101,12 @@ const HomeScreen = () => {
   const getKeyExtractor = (prefix) => (item) => `${prefix}-${item.id}`;
 
   const navigateToChatScreen = () => {
-    navigation.navigate('AIChat');
+    navigation.navigate("AIChat");
   };
 
-
-const Book = function(){
-navigation.navigate('Oneway');
-}; 
-
+  const Book = function () {
+    navigation.navigate("Oneway");
+  };
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -95,7 +117,11 @@ navigation.navigate('Oneway');
             <Text style={styles.text}>Where are you going?</Text>
           </Text>
           <TouchableOpacity onPress={onBellOutlinePressed}>
-            <MaterialCommunityIcons name="bell-outline" size={24} color="#7D7D7D" />
+            <MaterialCommunityIcons
+              name="bell-outline"
+              size={24}
+              color="#7D7D7D"
+            />
           </TouchableOpacity>
         </View>
 
@@ -105,7 +131,13 @@ navigation.navigate('Oneway');
             bordercolor="#7D7D7D"
             borderRadius="7"
             iconName="search"
-            icon={<MaterialCommunityIcons name="magnify" size={20} color="#7D7D7D" />}
+            icon={
+              <MaterialCommunityIcons
+                name="magnify"
+                size={20}
+                color="#7D7D7D"
+              />
+            }
             onChangeText={updateSearch} // Update search query on input change
           />
         </View>
@@ -165,7 +197,8 @@ navigation.navigate('Oneway');
               {/* Third FlatList */}
               <Text style={styles.sectionTitle}>Trip Inscription</Text>
               <Text style={styles.writing}>
-                Experience the world through new cultures and breathtaking landscapes.
+                Experience the world through new cultures and breathtaking
+                landscapes.
               </Text>
               <FlatList
                 data={data3}
@@ -177,7 +210,9 @@ navigation.navigate('Oneway');
               />
 
               {/* Fourth FlatList */}
-              <Text style={styles.sectionTitle}>Recreational Sites Around the World</Text>
+              <Text style={styles.sectionTitle}>
+                Recreational Sites Around the World
+              </Text>
               <FlatList
                 data={recreationalSitesData}
                 horizontal={true}
@@ -191,7 +226,10 @@ navigation.navigate('Oneway');
         </Animated.ScrollView>
         {/* AI Assistant Icon */}
         <TouchableOpacity style={styles.aiIcon} onPress={navigateToChatScreen}>
-          <Image source={require("../../assets/aiassistant.png")} style={styles.aiImage} />
+          <Image
+            source={require("../../assets/aiassistant.png")}
+            style={styles.aiImage}
+          />
         </TouchableOpacity>
       </SafeAreaView>
     </GestureHandlerRootView>
@@ -229,10 +267,9 @@ const styles = StyleSheet.create({
   bookFlightButton: {
     borderRadius: 10,
     paddingVertical: 12,
-    //paddingHorizontal: 2,
     alignItems: "center",
     borderColor: "#00527e",
-    borderWidth:1.5,
+    borderWidth: 1.5,
     justifyContent: "center",
     marginHorizontal: 16,
     marginBottom: 20,
@@ -263,9 +300,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 4,
   },
- /* heartIconLiked: {
-    backgroundColor: "red",
-  },*/
   sectionTitle: {
     fontSize: 18,
     fontWeight: "bold",

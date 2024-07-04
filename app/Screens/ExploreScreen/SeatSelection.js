@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions, SafeAreaView } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const SeatSelection = ({ route }) => {
   //const { userName } = route.params; 
@@ -11,8 +12,6 @@ const SeatSelection = ({ route }) => {
     'available', 'not-available', 'not-available', 'premium', 'not-available', 'not-available', 
     'available', 'not-available', 'not-available', 'premium', 'not-available', 'not-available',
     'available', 'not-available', 'not-available', 'available', 'not-available', 'not-available', 
-    'available', 'not-available', 'not-available', 'available', 'not-available', 'not-available',
-    'available', 'not-available', 'not-available', 'exit', 'not-available', 'not-available', 
     'available', 'not-available', 'not-available', 'available', 'not-available', 'not-available',
   ];
 
@@ -44,11 +43,21 @@ const SeatSelection = ({ route }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.titleContainer}>
+     <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        <Icon name="chevron-back" size={18} color="#000" />
+      </TouchableOpacity>
+
       <Text style={styles.title}>Select seat</Text>
-      <Text style={styles.userName}>Ama Atta</Text>
-      <Text style={styles.seatStatus}>Seat: {selectedSeat || 'Not selected'}</Text>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
+      </View>
+
+      <View style={styles.SeatSelection}>
+            <Text style={styles.userName}>Ama Atta</Text>
+            <Text style={styles.seatStatus}>Seat: {selectedSeat || 'Not selected'}</Text>
+      </View>
+
+      <View contentContainerStyle={styles.scrollContainer}>
         <View style={styles.seatContainer}>
           {seats.map((seat, index) => (
             <TouchableOpacity
@@ -64,7 +73,7 @@ const SeatSelection = ({ route }) => {
             </TouchableOpacity>
           ))}
         </View>
-      </ScrollView>
+      </View>
       <View style={styles.legend}>
         <View style={styles.legendItem}>
           <View style={[styles.legendColor, { backgroundColor: seatTypes.available }]} />
@@ -83,10 +92,12 @@ const SeatSelection = ({ route }) => {
           <Text style={styles.legendText}>Exit seat</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.saveButton}>
+
+      <TouchableOpacity style={[styles.saveButton, selectedSeat && styles.saveButtonSelected]}>
         <Text style={styles.saveButtonText}>Save a seat</Text>
       </TouchableOpacity>
-    </View>
+
+    </SafeAreaView>
   );
 };
 
@@ -100,10 +111,16 @@ const styles = StyleSheet.create({
   scrollContainer: {
     alignItems: 'center',
   },
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    marginBottom: 10,
+  },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginLeft: 120,
   },
   userName: {
     fontSize: 20,
@@ -132,14 +149,24 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#000',
   },
+  SeatSelection:{
+      width: '100%',
+      paddingLeft: 20,
+  },
   legend: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '80%',
-    marginBottom: 20,
+    justifyContent: 'space-evenly',
+    width: '95%',
+    //marginBottom: 20,
+    gap:10,
+    borderWidth: 1,
+    paddingBottom: 20,
+    paddingTop: 20,
+    borderRadius: 6,
+    top:20,
+    borderColor: '#ccc',
   },
   legendItem: {
-    flexDirection: 'row',
     alignItems: 'center',
   },
   legendColor: {
@@ -148,15 +175,22 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   legendText: {
-    fontSize: 14,
+    fontSize: 10,
+    flexDirection: 'column',
   },
   saveButton: {
     padding: 15,
     backgroundColor: '#87CEEB',
     borderRadius: 5,
+    width: 300,
+    top: 100,
+  },
+  saveButtonSelected: {
+    backgroundColor: '#00527E',
   },
   saveButtonText: {
     fontSize: 18,
+    alignSelf: 'center',
     fontWeight: 'bold',
     color: '#fff',
   },
