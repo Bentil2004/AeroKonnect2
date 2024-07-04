@@ -2,22 +2,25 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import EditDetails from './EditDetails';
+import MyAccountUser from './MyAccountUser';
+
+
 
 const ProfileDetails = ({ navigation }) => {
-
-    const onProfileDetailsPressed = () => {
-        navigation.navigate('ProfileDetails'); 
-    };
-
+  const onProfileDetailsPressed = () => {
+    navigation.navigate("ProfileDetails");
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={onProfileDetailsPressed}>
-          <Icon name="chevron-left" size={20} color="#00527e" />
+          <Icon name="chevron-left" size={20} color="#00527e"onPress={(chevron) => navigation.navigate(MyAccountUser)} />
         </TouchableOpacity>
         <Text style={styles.title}>Profile Details</Text>
-        <TouchableOpacity style={styles.editButton}>
+        
+        <TouchableOpacity style={styles.editButton} onPress={(Edit) => navigation.navigate(EditDetails)}>
           <Text style={styles.editText}>Edit</Text>
           <Icon name="pencil" size={16} color="black" />
         </TouchableOpacity>
@@ -55,45 +58,45 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   editButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   editText: {
     marginRight: 5,
     fontSize: 16,
   },
   profileContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     marginVertical: 20,
   },
   profilePicture: {
     width: 100,
     height: 100,
     borderRadius: 50,
-    backgroundColor: '#00527e',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#00527e",
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: 10,
   },
   profileInitials: {
     fontSize: 36,
-    color: '#fff',
+    color: "#fff",
   },
   greeting: {
     fontSize: 18,
-    color: '#00527e',
+    color: "#00527e",
   },
   detailsContainer: {
     marginTop: 20,
@@ -103,7 +106,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   detailLabel: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });
 

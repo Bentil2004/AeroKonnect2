@@ -20,7 +20,7 @@ const OneWay = function({ navigation }){
  <TouchableOpacity>
  <Image
 style={styles.topback}
- source={require('./../assets/Baackward.png')}
+ source={require('../../assets/Baackward.png')}
    />
  </TouchableOpacity>
 <Text style={styles.book}>
@@ -43,7 +43,7 @@ style={styles.topback}
             <Image
               style={styles.chevronBackwardIcon}
               resizeMode="cover"
-              
+              source={require('../../assets/images/backward.png')}
             />
             </TouchableOpacity>
           </View>

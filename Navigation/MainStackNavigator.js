@@ -36,6 +36,10 @@ import PassengersDetails from "../app/Screens/ExploreScreen/PassengersDetails";
 import SeatSelection from "../app/Screens/ExploreScreen/SeatSelection";
 import MultiCity from "../app/Screens/MultiCity/Multicity";
 import RoundTrip from "../app/Screens/RoundTrip/RoundTrip";
+import EditDetails from "../app/Screens/ProfileScreen/EditDetails";
+import ChangePassword from "../app/Screens/ProfileScreen/ChangePassword";
+import DeleteAccount from "../app/Screens/ProfileScreen/DeleteAccount";
+import LogoutModal from "../app/Screens/ProfileScreen/LogoutModal";
 
 
 const Stack = createNativeStackNavigator();
@@ -62,6 +66,13 @@ const MainStackNavigator = () => {
         <Stack.Screen name="Oneway" component={Oneway} />
         <Stack.Screen name="MultiCity" component={MultiCity} />
         <Stack.Screen name="Home" component={RoundTrip} />
+        <Stack.Screen name="TripDetails" component={TripDetails} />
+        <Stack.Screen name="PassengersDetails" component={PassengersDetails} />
+        <Stack.Screen name="SeatSelection" component={SeatSelection} />
+        <Stack.Screen name="EditDetails" component={EditDetails} />
+        <Stack.Screen name="ChangePassword" component={ChangePassword} />
+        <Stack.Screen name="DeleteAccount" component={DeleteAccount} />
+        <Stack.Screen name="LogoutModal" component={LogoutModal} />
         <Stack.Screen
           name="ForgotPasswordEmail"
           component={ForgotPasswordEmail}
