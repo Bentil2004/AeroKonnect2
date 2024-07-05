@@ -40,7 +40,9 @@ import EditDetails from "../app/Screens/ProfileScreen/EditDetails";
 import ChangePassword from "../app/Screens/ProfileScreen/ChangePassword";
 import DeleteAccount from "../app/Screens/ProfileScreen/DeleteAccount";
 import LogoutModal from "../app/Screens/ProfileScreen/LogoutModal";
-
+import CountryLanguageSelection from "../app/Screens/ProfileScreen/CountryLanguageSelection";
+import PaymentMethods from "../app/Screens/ExploreScreen/PaymentMethods";
+import ConfirmationScreen from "../app/Screens/ExploreScreen/ConfirmationScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -50,8 +52,8 @@ const MainStackNavigator = () => {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="SplashScreen" component={SplashScreen} />
         <Stack.Screen name="SignUpDetails" component={SignUpDetailsScreen} />
-        <Stack.Screen name="CompletionScreen" component={CompletionScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
+        <Stack.Screen name="CompletionScreen" component={CompletionScreen} />
         <Stack.Screen name="BottomTab" component={BottomTabNavigator} />
         <Stack.Screen name="NextWelcome" component={NextWelcomeScreen} />
         <Stack.Screen name="MyTripScreen" component={MyTripScreen} />
@@ -73,40 +75,22 @@ const MainStackNavigator = () => {
         <Stack.Screen name="ChangePassword" component={ChangePassword} />
         <Stack.Screen name="DeleteAccount" component={DeleteAccount} />
         <Stack.Screen name="LogoutModal" component={LogoutModal} />
-        <Stack.Screen
-          name="ForgotPasswordEmail"
-          component={ForgotPasswordEmail}
-        />
-        <Stack.Screen
-          name="TermsAndConditions"
-          component={TermsAndConditions}
-        />
+        <Stack.Screen name="ForgotPasswordEmail" component={ForgotPasswordEmail} />
+        <Stack.Screen name="TermsAndConditions" component={TermsAndConditions} />
         <Stack.Screen name="SignIn" component={SignInScreen} />
         <Stack.Screen name="LogIn" component={LogInScreen} />
-        <Stack.Screen
-          name="ForgotPasswordPhone"
-          component={ForgotPasswordPhone}
-        />
+        <Stack.Screen name="ForgotPasswordPhone" component={ForgotPasswordPhone}/>
         <Stack.Screen name="Notification" component={Notification} />
-        <Stack.Screen
-          name="PhoneNumberVerification"
-          component={PhoneNumberVerificationScreen}
-        />
-        <Stack.Screen
-          name="PhoneNumberVerificationForgotPassword"
-          component={PhoneNumberVerificationScreenForgotPassword}
-        />
-        <Stack.Screen
-          name="EmailVerification"
-          component={EmailVerificationScreen}
-        />
+        <Stack.Screen name="PhoneNumberVerification" component={PhoneNumberVerificationScreen} />
+        <Stack.Screen name="PhoneNumberVerificationForgotPassword" component={PhoneNumberVerificationScreenForgotPassword} />
+        <Stack.Screen name="EmailVerification" component={EmailVerificationScreen} />
         <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
-        <Stack.Screen
-          name="PopularDestination"
-          component={PopularDestinationScreen}
-        />
+        <Stack.Screen name="PopularDestination" component={PopularDestinationScreen} />
         <Stack.Screen name="ToDo" component={ToDoScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen name="CountryLanguageSelection" component={CountryLanguageSelection} />
+        <Stack.Screen name="PaymentMethodsSeats" component={PaymentMethods} />
+        <Stack.Screen name="ConfirmationScreen" component={ConfirmationScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
