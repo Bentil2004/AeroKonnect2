@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, ScrollView, useWindowDimensions, Alert } from "react-native";
+import { Text, View, StyleSheet, ScrollView, useWindowDimensions, Alert, ActivityIndicator } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import * as AuthSession from 'expo-auth-session';
 import * as AppleAuthentication from 'expo-apple-authentication';
@@ -21,6 +21,7 @@ const SignUpScreen = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [passwordRepeatError, setPasswordRepeatError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
   const { width, height } = useWindowDimensions();
   const isLandscape = width > height;
@@ -68,12 +69,38 @@ const SignUpScreen = () => {
 
     return valid;
   };
-
-  const onSignUpDetailsPressed = () => {
+  
+  const onSignUpDetailsPressed = async () => {
     if (validateForm()) {
-      navigation.navigate('SignUpDetails');
+      setLoading(true);
+      try {
+        const response = await fetch("YOUR_API_URL/api/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: Email,
+            password: Password,
+          }),
+        });
+
+        const data = await response.json();
+        setLoading(false);
+
+        if (response.ok) {
+          Alert.alert("Success", "Account created successfully!");
+          navigation.navigate("SignUpDetails");
+        } else {
+          Alert.alert("Error", data.message || "Failed to create account");
+        }
+      } catch (error) {
+        setLoading(false);
+        Alert.alert("Error", "An error occurred. Please try again.");
+      }
     }
   };
+
 
   const onTermsandConditionsPressed = () => {
     navigation.navigate('TermsAndConditions');
@@ -218,10 +245,11 @@ const SignUpScreen = () => {
         {passwordRepeatError ? <Text style={styles.errorText}>{passwordRepeatError}</Text> : null}
 
         <CustomButton
-          text="Next"
+          text={loading ? <ActivityIndicator size="small" color="#FFFFFF" /> : "Next"}
           onPress={onSignUpDetailsPressed}
           bg={"#00527e"}
           txt={"white"}
+          disabled={loading} 
         />
       </View>
 

@@ -21,6 +21,12 @@ const ProfileScreen = ({ navigation }) => {
     navigation.navigate('MyAccountUser'); 
   };
 
+
+  const onCountyLanguageSelectionPressed = () => {
+    navigation.navigate('CountryLanguageSelection');
+  };
+
+  
   return (
     <View style={styles.container}>
       <Text style={styles.title}>PROFILE</Text>
@@ -35,7 +41,7 @@ const ProfileScreen = ({ navigation }) => {
         <Text style={styles.buttonText}>Payment Method</Text>
         <Icon name="chevron-right" size={20} color="#00527e" />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={onCountyLanguageSelectionPressed}>
         <Icon name="cog" size={20} color="#00527e" />
         <Text style={styles.buttonText}>Settings</Text>
         <Icon name="chevron-right" size={20} color="#00527e" />
