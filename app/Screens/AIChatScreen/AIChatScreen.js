@@ -23,22 +23,38 @@ const AIChatScreen = () => {
   const flatListRef = useRef(null);
 
   const query = async (data) => {
-    console.log("Request Payload:", data);
-    
-    const response = await fetch(
-      "https://api-inference.huggingface.co/models/google/flan-t5-small",
-      {
-        headers: {
-          Authorization: "Bearer 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",
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-        body: JSON.stringify(data),
-      }
-    );
-    const result = await response.json();
-    console.log("Raw Response:", result);
-    return result;
+    const url = 'https://chatgpt-42.p.rapidapi.com/conversationgpt4-2';
+    const options = {
+      method: 'POST',
+      headers: {
+        'x-rapidapi-key': '8d96448f6cmsh6976762dedf920ap10a7afjsn1d21cf7179c8',
+        'x-rapidapi-host': 'chatgpt-42.p.rapidapi.com',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        messages: [
+          {
+            role: 'user',
+            content: data
+          }
+        ],
+        system_prompt: '',
+        temperature: 0.9,
+        top_k: 5,
+        top_p: 0.9,
+        max_tokens: 256,
+        web_access: false
+      })
+    };
+
+    try {
+      const response = await fetch(url, options);
+      const result = await response.json();
+      console.log(result);
+      return result;
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const sendMessage = async () => {
@@ -56,13 +72,13 @@ const AIChatScreen = () => {
     setLoading(true);
 
     try {
-      const response = await query({ inputs: inputMessage });
+      const response = await query(inputMessage);
 
-      console.log("API Response:", response);
+      console.log("API Response:", response.result);
 
       const aiMessage = {
         id: Date.now().toString(),
-        text: response.generated_text?.trim() || "No response text found",
+        text: response?.result || "No response text found",
         sender: "ai",
         time: new Date().toLocaleTimeString(),
       };

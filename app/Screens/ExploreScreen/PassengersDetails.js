@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   },
   headerPrice: {
     fontSize: 16,
-    color: '#ad527e',
+    color: '#2073CC',
   },
   detailsContainer: {
     marginTop: 20,
