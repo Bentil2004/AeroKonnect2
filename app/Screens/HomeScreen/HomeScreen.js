@@ -190,7 +190,6 @@ const HomeScreen = () => {
             </>
           )}
         </Animated.ScrollView>
-        {/* AI Assistant Icon */}
         <TouchableOpacity style={styles.aiIcon} onPress={navigateToChatScreen}>
           <Image source={require("../../assets/aiassistant.png")} style={styles.aiImage} />
         </TouchableOpacity>
@@ -274,7 +273,7 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   heartIconLiked: {
-    backgroundColor: "red",
+    //backgroundColor: "red",
   },
   sectionTitle: {
     fontSize: 18,

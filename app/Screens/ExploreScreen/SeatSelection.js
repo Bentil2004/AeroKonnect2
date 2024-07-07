@@ -11,7 +11,6 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
 
 const SeatSelection = ({ route }) => {
-  //const { userName } = route.params;
   const [selectedSeat, setSelectedSeat] = useState(null);
   const navigation = useNavigation();
 
@@ -77,12 +76,10 @@ const SeatSelection = ({ route }) => {
     }
   };
 
-  
-
   const handleSeatSelection = (seat) => {
     setSelectedSeat(seat);
   };
-   
+
   const handleSaveSeat = () => {
     if (selectedSeat) {
       navigation.navigate("PaymentMethodsSeats");
@@ -90,6 +87,7 @@ const SeatSelection = ({ route }) => {
       alert("Please select a seat");
     }
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleContainer}>
@@ -215,11 +213,12 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
     marginBottom: 20,
+    marginHorizontal: 5,
   },
   seat: {
-    width: Dimensions.get("window").width / 6 - 10,
-    height: Dimensions.get("window").width / 6 - 10,
-    margin: 5,
+    width: Dimensions.get("window").width / 6 - 15, // Adjusted width for spacing
+    height: Dimensions.get("window").width / 6 - 15, // Adjusted height for spacing
+    margin: 5, // Added margin for spacing
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
@@ -237,7 +236,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     width: "95%",
-    //marginBottom: 20,
     gap: 10,
     borderWidth: 1,
     paddingBottom: 20,
