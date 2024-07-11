@@ -22,10 +22,17 @@ const ProfileScreen = ({ navigation }) => {
   };
 
 
-  const onCountyLanguageSelectionPressed = () => {
-    navigation.navigate('CountryLanguageSelection');
+  const onSettingsPressed = () => {
+    navigation.navigate('SettingsScreen');
   };
 
+  const onLegalInfoPressed = () => {
+    navigation.navigate('LegalInfo');
+  };
+
+ const onFeedbackPressed = () => {
+    navigation.navigate('Feedback');
+  };
   
   return (
     <View style={styles.container}>
@@ -41,17 +48,17 @@ const ProfileScreen = ({ navigation }) => {
         <Text style={styles.buttonText}>Payment Method</Text>
         <Icon name="chevron-right" size={20} color="#00527e" />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={onCountyLanguageSelectionPressed}>
+      <TouchableOpacity style={styles.button} onPress={onSettingsPressed}>
         <Icon name="cog" size={20} color="#00527e" />
         <Text style={styles.buttonText}>Settings</Text>
         <Icon name="chevron-right" size={20} color="#00527e" />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={onLegalInfoPressed}>
         <Icon name="info-circle" size={20} color="#00527e" />
         <Text style={styles.buttonText}>Legal Information</Text>
         <Icon name="chevron-right" size={20} color="#00527e" />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={onFeedbackPressed}>
         <Icon name="comments" size={20} color="#00527e" />
         <Text style={styles.buttonText}>Feedback</Text>
         <Icon name="chevron-right" size={20} color="#00527e" />
