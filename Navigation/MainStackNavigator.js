@@ -49,6 +49,8 @@ import Feedback from "../app/Screens/ProfileScreen/Feedback";
 import FeedbackSuccess from "../app/Screens/ProfileScreen/FeedbackSuccess";
 import SettingsScreen from "../app/Screens/ProfileScreen/SettingsScreen";
 import Map from "../app/Screens/Map";
+import explore from "../app/Screens/ExploreScreen/ExploreScreen";
+import explore2 from "../app/Screens/ExploreScreen/Explore2";
 
 const Stack = createNativeStackNavigator();
 
