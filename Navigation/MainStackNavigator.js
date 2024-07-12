@@ -1,7 +1,6 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import SplashScreen from "../app/Screens/SplashScreen/SplashScreen";
 import SignUpDetailsScreen from "../app/Screens/SignUpDetailsScreen/SignUpDetailsScreen";
@@ -11,7 +10,6 @@ import BottomTabNavigator from "../NavigationHome/BottomTabNavigator";
 import NextWelcomeScreen from "../app/Screens/NextWelcomeScreen/NextWelcomeScreen";
 import ForgotPasswordScreen from "../app/Screens/ForgotPassword/ForgotPasswordScreen";
 import ForgotPasswordEmail from "../app/Screens/ForgotPassword/ForgotPasswordEmail";
-//import TermsAndConditions from "../app/Screens/TermsAndConditions/TermsAndConditions";
 import SignInScreen from "../app/Screens/SignInScreen/SignInScreen";
 import LogInScreen from "../app/Screens/LogInScreen/LogInScreen";
 import ForgotPasswordPhone from "../app/Screens/ForgotPassword/ForgotPasswordPhone";
@@ -31,7 +29,7 @@ import MyAccountUser from "../app/Screens/ProfileScreen/MyAccountUser";
 import ManageAccount from "../app/Screens/ProfileScreen/ManageAccount";
 import ProfileDetails from "../app/Screens/ProfileScreen/ProfileDetails";
 import AIChatScreen from "../app/Screens/AIChatScreen/AIChatScreen";
-import Oneway from "../app/Screens/Oneway/oneway"; 
+import Oneway from "../app/Screens/Oneway/oneway";
 import TripDetails from "../app/Screens/MyTripScreen/TripDetails";
 import PassengersDetails from "../app/Screens/ExploreScreen/PassengersDetails";
 import SeatSelection from "../app/Screens/ExploreScreen/SeatSelection";
@@ -88,9 +86,9 @@ const MainStackNavigator = () => {
         <Stack.Screen name="TermsAndConditions" component={TermsAndConditions} />
         <Stack.Screen name="SignIn" component={SignInScreen} />
         <Stack.Screen name="LogIn" component={LogInScreen} />
-        <Stack.Screen name="ForgotPasswordPhone" component={ForgotPasswordPhone}/>
+        <Stack.Screen name="ForgotPasswordPhone" component={ForgotPasswordPhone} />
         <Stack.Screen name="Notification" component={Notification} />
-        <Stack.Screen name="PhoneNumberVerification" component={PhoneNumberVerificationScreen} />
+        <Stack.Screen name="PhoneNumberVerification" component={PhoneNumberVerificationScreen}/>
         <Stack.Screen name="PhoneNumberVerificationForgotPassword" component={PhoneNumberVerificationScreenForgotPassword} />
         <Stack.Screen name="EmailVerification" component={EmailVerificationScreen} />
         <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
@@ -105,7 +103,6 @@ const MainStackNavigator = () => {
         <Stack.Screen name="Feedback" component={Feedback} />
         <Stack.Screen name="FeedbackSuccess" component={FeedbackSuccess} />
         <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
-        {/* <Stack.Screen name="TermsAndConditions" component={TermsAndConditions} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
