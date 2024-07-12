@@ -9,6 +9,7 @@ import {
   FlatList,
   KeyboardAvoidingView,
   Image,
+  ActivityIndicator,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import axios from "axios";
@@ -18,7 +19,43 @@ const AIChatScreen = () => {
   const navigation = useNavigation();
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const flatListRef = useRef(null);
+
+  const query = async (data) => {
+    const url = 'https://chatgpt-42.p.rapidapi.com/conversationgpt4-2';
+    const options = {
+      method: 'POST',
+      headers: {
+        'x-rapidapi-key': '8d96448f6cmsh6976762dedf920ap10a7afjsn1d21cf7179c8',
+        'x-rapidapi-host': 'chatgpt-42.p.rapidapi.com',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        messages: [
+          {
+            role: 'user',
+            content: data
+          }
+        ],
+        system_prompt: '',
+        temperature: 0.9,
+        top_k: 5,
+        top_p: 0.9,
+        max_tokens: 256,
+        web_access: false
+      })
+    };
+
+    try {
+      const response = await fetch(url, options);
+      const result = await response.json();
+      console.log(result);
+      return result;
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const sendMessage = async () => {
     if (inputMessage.trim() === "") return;
@@ -32,33 +69,33 @@ const AIChatScreen = () => {
     setMessages([...messages, newMessage]);
     setInputMessage("");
 
+    setLoading(true);
+
     try {
-      const response = await axios.post(
-        'https://api.openai.com/v1/engines/davinci-codex/completions',
-        {
-          prompt: inputMessage,
-          max_tokens: 150,
-        },
-        {
-          headers: {
-            Authorization: `Bearer YOUR_OPENAI_API_KEY`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      const response = await query(inputMessage);
+
+      console.log("API Response:", response.result);
 
       const aiMessage = {
         id: Date.now().toString(),
-        text: response.data.choices[0].text.trim(),
+        text: response?.result || "No response text found",
         sender: "ai",
         time: new Date().toLocaleTimeString(),
       };
       setMessages((prevMessages) => [...prevMessages, aiMessage]);
-
-      flatListRef.current?.scrollToEnd({ animated: true });
     } catch (error) {
       console.error("Error fetching AI response:", error);
+      const errorMessage = {
+        id: Date.now().toString(),
+        text: "Sorry, I couldn't fetch a response. Please try again.",
+        sender: "ai",
+        time: new Date().toLocaleTimeString(),
+      };
+      setMessages((prevMessages) => [...prevMessages, errorMessage]);
     }
+
+    setLoading(false);
+    flatListRef.current?.scrollToEnd({ animated: true });
   };
 
   const renderMessageItem = ({ item }) => (
@@ -68,7 +105,15 @@ const AIChatScreen = () => {
         item.sender === "user" ? styles.userMessage : styles.aiMessage,
       ]}
     >
-      <Text style={styles.messageText}>{item.text}</Text>
+      {item.sender === "ai" && (
+        <Image
+          source={require("../../assets/aiassistant.png")}
+          style={styles.aiImage1}
+        />
+      )}
+      <Text style={[styles.messageText, item.sender === "ai" && styles.aiText]}>
+        {item.text}
+      </Text>
       <Text style={styles.messageTime}>{item.time}</Text>
     </View>
   );
@@ -79,7 +124,10 @@ const AIChatScreen = () => {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <MaterialCommunityIcons name="arrow-left" size={24} color="#fff" />
         </TouchableOpacity>
-        <Image source={require("../../assets/aiassistant.png")} style={styles.aiImage} />
+        <Image
+          source={require("../../assets/aiassistant.png")}
+          style={styles.aiImage}
+        />
         <Text style={styles.headerTitle}>AI Assistant</Text>
       </View>
 
@@ -93,6 +141,12 @@ const AIChatScreen = () => {
           flatListRef.current?.scrollToEnd({ animated: true })
         }
       />
+
+      {loading && (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="small" color="#2073cc" />
+        </View>
+      )}
 
       <KeyboardAvoidingView behavior="padding" style={styles.inputContainer}>
         <TextInput
@@ -127,6 +181,17 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 10,
   },
+  aiImage: {
+    width: 50,
+    height: 50,
+    resizeMode: "contain",
+    marginLeft: 10,
+  },
+  aiImage1: {
+    width: 30,
+    height: 30,
+    resizeMode: "contain",
+  },
   messagesList: {
     paddingHorizontal: 10,
     paddingVertical: 5,
@@ -136,6 +201,8 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 5,
     maxWidth: "75%",
+    flexDirection: "row",
+    alignItems: "flex-start",
   },
   userMessage: {
     alignSelf: "flex-end",
@@ -148,17 +215,21 @@ const styles = StyleSheet.create({
   messageText: {
     fontSize: 17,
     color: "#fff",
+    marginLeft: 10,
+    maxWidth: "85%",
+  },
+  aiText: {
+    color: "#000",
   },
   messageTime: {
-    fontSize: 12,
+    fontSize: 10,
     color: "#e1e1e1",
-    alignSelf: "flex-end",
-    marginTop: 5,
+    marginTop: 15,
   },
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center", 
+    justifyContent: "center",
     backgroundColor: "#00527e",
     padding: 10,
     paddingBottom: 10,
@@ -167,12 +238,14 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    borderRadius: 20,
-    borderWidth: 1,
+    borderRadius: 10,
+    borderWidth: 5,
     backgroundColor: "#fff",
     borderColor: "#00527e",
     paddingHorizontal: 15,
-    paddingVertical: 30,
+    paddingVertical: 10,
+    marginBottom: 40,
+    marginTop: 20,
     fontSize: 16,
   },
   sendButton: {
@@ -180,8 +253,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#2073cc",
     borderRadius: 10,
     padding: 10,
+    marginBottom: 25,
+  },
+  loadingContainer: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: [{ translateX: -25 }, { translateY: -25 }],
   },
 });
 
 export default AIChatScreen;
-

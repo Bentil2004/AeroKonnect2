@@ -80,11 +80,9 @@ const HomeScreen = () => {
     navigation.navigate('AIChat');
   };
 
-
-const Book = function(){
-navigation.navigate('Oneway');
-}; 
-
+  const Book = function(){
+    navigation.navigate('Oneway');
+  }; 
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -106,12 +104,15 @@ navigation.navigate('Oneway');
             borderRadius="7"
             iconName="search"
             icon={<MaterialCommunityIcons name="magnify" size={20} color="#7D7D7D" />}
-            onChangeText={updateSearch} // Update search query on input change
+            onChangeText={updateSearch} 
           />
         </View>
 
         <TouchableOpacity onPress={Book} style={styles.bookFlightButton}>
-          <Text style={styles.bookFlightButtonText}>Book a flight</Text>
+          <View style={styles.bookFlightButtonContent}>
+            <Image source={require("../../assets/images/inclined.png")} style={styles.bookFlightButtonImage} />
+            <Text style={styles.bookFlightButtonText}>Book a flight</Text>
+          </View>
         </TouchableOpacity>
 
         <Animated.ScrollView
@@ -189,7 +190,6 @@ navigation.navigate('Oneway');
             </>
           )}
         </Animated.ScrollView>
-        {/* AI Assistant Icon */}
         <TouchableOpacity style={styles.aiIcon} onPress={navigateToChatScreen}>
           <Image source={require("../../assets/aiassistant.png")} style={styles.aiImage} />
         </TouchableOpacity>
@@ -229,13 +229,22 @@ const styles = StyleSheet.create({
   bookFlightButton: {
     borderRadius: 10,
     paddingVertical: 12,
-    //paddingHorizontal: 2,
     alignItems: "center",
     borderColor: "#00527e",
-    borderWidth:1.5,
+    borderWidth: 1.5,
     justifyContent: "center",
     marginHorizontal: 16,
     marginBottom: 20,
+  },
+  bookFlightButtonContent: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  bookFlightButtonImage: {
+    width: 18,
+    left: -5,
+    height: 18,
+    marginRight: 8,
   },
   bookFlightButtonText: {
     color: "#00527e",
@@ -263,9 +272,9 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 4,
   },
- /* heartIconLiked: {
-    backgroundColor: "red",
-  },*/
+  heartIconLiked: {
+    //backgroundColor: "red",
+  },
   sectionTitle: {
     fontSize: 18,
     fontWeight: "bold",

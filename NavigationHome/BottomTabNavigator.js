@@ -6,7 +6,6 @@ import { Animated } from 'react-native';
 import HomeScreen from '../app/Screens/HomeScreen/HomeScreen';
 import ExploreScreen from '../app/Screens/ExploreScreen/ExploreScreen';
 import ProfileScreen from '../app/Screens/ProfileScreen/ProfileScreen';
-import MyTripScreen from '../app/Screens/MyTripScreen/MyTrip';
 import MyTripNavigator from './MyTripNavigator';
 
 const Tab = createBottomTabNavigator();
