@@ -20,7 +20,7 @@ import PhoneNumberVerificationScreen from "../app/Screens/PhoneNumberVerificatio
 import PhoneNumberVerificationScreenForgotPassword from "../app/Screens/PhoneNumberVerificationForgotPassword/PhoneNumberVerificationScreenForgotPassword";
 import EmailVerificationScreen from "../app/Screens/EmailVerification/EmailVerificationScreen";
 import ResetPasswordScreen from "../app/Screens/ResetPasswordScreen/ResetPasswordScreen";
-import PopularDestinationScreen from "../app/Screens/PopularDestination/PopularDestinationScreen";
+import PopularDestination from "../app/Screens/PopularDestination/PopularDestinationScreen";
 import MyTripScreen from "../app/Screens/MyTripScreen/MyTrip";
 import UpcomingTripsScreen from "../app/Screens/MyTripScreen/UpcomingTripsScreen";
 import ToDoScreen from "../app/Screens/PopularDestination/ToDoScreen";
@@ -51,6 +51,8 @@ import Feedback from "../app/Screens/ProfileScreen/Feedback";
 import FeedbackSuccess from "../app/Screens/ProfileScreen/FeedbackSuccess";
 import SettingsScreen from "../app/Screens/ProfileScreen/SettingsScreen";
 import Map from "../app/Screens/Map";
+import explore from "../app/Screens/ExploreScreen/ExploreScreen";
+import explore2 from "../app/Screens/ExploreScreen/Explore2";
 
 const Stack = createNativeStackNavigator();
 
@@ -94,7 +96,7 @@ const MainStackNavigator = () => {
         <Stack.Screen name="PhoneNumberVerificationForgotPassword" component={PhoneNumberVerificationScreenForgotPassword} />
         <Stack.Screen name="EmailVerification" component={EmailVerificationScreen} />
         <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
-        <Stack.Screen name="PopularDestination" component={PopularDestinationScreen} />
+        <Stack.Screen name="PopularDestination" component={PopularDestination} />
         <Stack.Screen name="ToDo" component={ToDoScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="CountryLanguageSearch" component={CountryLanguageSearch} />
@@ -105,6 +107,8 @@ const MainStackNavigator = () => {
         <Stack.Screen name="Feedback" component={Feedback} />
         <Stack.Screen name="FeedbackSuccess" component={FeedbackSuccess} />
         <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
+        <Stack.Screen name="explore" component={explore} />
+        <Stack.Screen name="explore2" component={explore2} />
         {/* <Stack.Screen name="TermsAndConditions" component={TermsAndConditions} /> */}
       </Stack.Navigator>
     </NavigationContainer>
