@@ -20,7 +20,7 @@ const PopularDestinationScreen = ({ route }) => {
   const navigation = useNavigation();
 
   const renderImage = ({ item }) => (
-    <Image source={item} style={styles.imageThumbnail} />
+    <Image source={{ uri: item }} style={styles.imageThumbnail} />
   );
 
   const renderActivity = ({ item }) => (
@@ -28,7 +28,7 @@ const PopularDestinationScreen = ({ route }) => {
       style={styles.activityContainer}
       onPress={() => navigation.navigate('ToDo', { activity: item })}
     >
-      <Image source={item.image} style={styles.activityImage} />
+      <Image source={{ uri: item.image }} style={styles.activityImage} />
       <View style={styles.activityTextContainer}>
         <Text style={styles.activityTitle}>{item.title}</Text>
         <Text style={styles.activityDescription}>{item.description}</Text>
@@ -45,7 +45,7 @@ const PopularDestinationScreen = ({ route }) => {
       </TouchableOpacity>
 
       <ScrollView>
-        <Image source={destination.imageUrl} style={styles.image} />
+        <Image source={{ uri: destination.photoUrl }} style={styles.image} />
 
         <View style={styles.top}>
           <View style={styles.descriptionContainer}>
@@ -74,7 +74,7 @@ const PopularDestinationScreen = ({ route }) => {
 
         <Text style={styles.sectionTitle}>Things to do on your visit</Text>
         <FlatList
-          data={[destination.todo1, destination.todo2]}
+          data={destination.todo}
           keyExtractor={(item, index) => `activity-${index}`}
           renderItem={renderActivity}
           vertical

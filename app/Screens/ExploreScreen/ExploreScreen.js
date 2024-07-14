@@ -1,21 +1,27 @@
 import * as React from "react";
-import {Text,StyleSheet, View, Image,Pressable, ImageBackground, ScrollView, StatusBar} from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  Image,
+  ImageBackground,
+  ScrollView,
+  StatusBar,
+  TouchableOpacity,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-
-
 
 const Explore = () => {
   const navigation = useNavigation();
-  const E2 =function(){
-    navigation.navigate('explore2')
-  }
-  const pop = function(){
-    navigation.navigate('PopularDestination')
-  }
+  const E2 = function () {
+    navigation.navigate("Map");
+  };
+  const pop = function () {
+    navigation.navigate("PopularDestination");
+  };
   return (
     <View style={styles.explore}>
-    <StatusBar style="auto" />
+      <StatusBar style="auto" />
       <View style={styles.frameParent}>
         <View>
           <View style={styles.frameGroup}>
@@ -41,127 +47,125 @@ const Explore = () => {
             Explore different parts of the world
           </Text>
           <View style={styles.popularDestinations}>
-          
-          <ScrollView horizontal  showsHorizontalScrollIndicator={false}>
-          
-            <View style={styles.imageGroup}>
-              <ImageBackground
-                style={styles.imageIcon}
-                resizeMode="cover"
-                source={require("../../assets/image.png")}
-              >
-                <Image
-                  style={styles.favoriteIcon}
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <View style={styles.imageGroup}>
+                <ImageBackground
+                  style={styles.imageIcon}
                   resizeMode="cover"
-                  source={require("../../assets/favorite.png")}
-                />
-              </ImageBackground>
-              <View style={styles.tokyoJapanParent}>
-              <TouchableOpacity onPress={pop}>
-                <Text style={styles.tokyoJapan}>Tokyo, Japan</Text>
-                <Text style={styles.forFlight}>
-                  <Text style={styles.text}>$659.00</Text>
-                  <Text style={styles.text1}>{` `}</Text>
-                  <Text style={styles.forFlight1}>for flight</Text>
-                </Text>
-                </TouchableOpacity>
+                  source={require("../../assets/image.png")}
+                >
+                  <Image
+                    style={styles.favoriteIcon}
+                    resizeMode="cover"
+                    source={require("../../assets/favorite.png")}
+                  />
+                </ImageBackground>
+                <View style={styles.tokyoJapanParent}>
+                  <TouchableOpacity onPress={pop}>
+                    <Text style={styles.tokyoJapan}>Tokyo, Japan</Text>
+                    <Text style={styles.forFlight}>
+                      <Text style={styles.text}>$659.00</Text>
+                      <Text style={styles.text1}>{` `}</Text>
+                      <Text style={styles.forFlight1}>for flight</Text>
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
-            <View style={styles.imageContainer}>
-              <ImageBackground
-                style={styles.imageIcon}
-                resizeMode="cover"
-                source={require("../../assets/image.png")}
-              >
-                <Image
-                  style={styles.favoriteIcon}
+              <View style={styles.imageContainer}>
+                <ImageBackground
+                  style={styles.imageIcon}
                   resizeMode="cover"
-                  source={require("../../assets/favorite.png")}
-                />
-              </ImageBackground>
-              <View style={styles.tokyoJapanParent}>
-              <TouchableOpacity onPress={pop}>
-                <Text style={styles.tokyoJapan}>Tokyo, Japan</Text>
-                <Text style={styles.forFlight}>
-                  <Text style={styles.text}>$659.00</Text>
-                  <Text style={styles.text1}>{` `}</Text>
-                  <Text style={styles.forFlight1}>for flight</Text>
-                </Text>
-                </TouchableOpacity>
+                  source={require("../../assets/image.png")}
+                >
+                  <Image
+                    style={styles.favoriteIcon}
+                    resizeMode="cover"
+                    source={require("../../assets/favorite.png")}
+                  />
+                </ImageBackground>
+                <View style={styles.tokyoJapanParent}>
+                  <TouchableOpacity onPress={pop}>
+                    <Text style={styles.tokyoJapan}>Tokyo, Japan</Text>
+                    <Text style={styles.forFlight}>
+                      <Text style={styles.text}>$659.00</Text>
+                      <Text style={styles.text1}>{` `}</Text>
+                      <Text style={styles.forFlight1}>for flight</Text>
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
-            <View style={styles.frameView}>
-              <ImageBackground
-                style={styles.imageIcon}
-                resizeMode="cover"
-                source={require("../../assets/image.png")}
-              >
-                <Image
-                  style={styles.favoriteIcon}
+              <View style={styles.frameView}>
+                <ImageBackground
+                  style={styles.imageIcon}
                   resizeMode="cover"
-                  source={require("../../assets/favorite.png")}
-                />
-              </ImageBackground>
-              <View style={styles.tokyoJapanParent}>
-              <TouchableOpacity onPress={pop}>
-                <Text style={styles.tokyoJapan}>Tokyo, Japan</Text>
-                <Text style={styles.forFlight}>
-                  <Text style={styles.text}>$659.00</Text>
-                  <Text style={styles.text1}>{` `}</Text>
-                  <Text style={styles.forFlight1}>for flight</Text>
-                </Text>
-                </TouchableOpacity>
+                  source={require("../../assets/image.png")}
+                >
+                  <Image
+                    style={styles.favoriteIcon}
+                    resizeMode="cover"
+                    source={require("../../assets/favorite.png")}
+                  />
+                </ImageBackground>
+                <View style={styles.tokyoJapanParent}>
+                  <TouchableOpacity onPress={pop}>
+                    <Text style={styles.tokyoJapan}>Tokyo, Japan</Text>
+                    <Text style={styles.forFlight}>
+                      <Text style={styles.text}>$659.00</Text>
+                      <Text style={styles.text1}>{` `}</Text>
+                      <Text style={styles.forFlight1}>for flight</Text>
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
-            <View style={styles.frameView}>
-              <ImageBackground
-                style={styles.imageIcon}
-                resizeMode="cover"
-                source={require("../../assets/image.png")}
-              >
-                <Image
-                  style={styles.favoriteIcon}
+              <View style={styles.frameView}>
+                <ImageBackground
+                  style={styles.imageIcon}
                   resizeMode="cover"
-                  source={require("../../assets/favorite.png")}
-                />
-              </ImageBackground>
-              <View style={styles.tokyoJapanParent}>
-              <TouchableOpacity onPress={pop}>
-                <Text style={styles.tokyoJapan}>Tokyo, Japan</Text>
-                <Text style={styles.forFlight}>
-                  <Text style={styles.text}>$659.00</Text>
-                  <Text style={styles.text1}>{` `}</Text>
-                  <Text style={styles.forFlight1}>for flight</Text>
-                </Text>
-                </TouchableOpacity>
+                  source={require("../../assets/image.png")}
+                >
+                  <Image
+                    style={styles.favoriteIcon}
+                    resizeMode="cover"
+                    source={require("../../assets/favorite.png")}
+                  />
+                </ImageBackground>
+                <View style={styles.tokyoJapanParent}>
+                  <TouchableOpacity onPress={pop}>
+                    <Text style={styles.tokyoJapan}>Tokyo, Japan</Text>
+                    <Text style={styles.forFlight}>
+                      <Text style={styles.text}>$659.00</Text>
+                      <Text style={styles.text1}>{` `}</Text>
+                      <Text style={styles.forFlight1}>for flight</Text>
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
-            <View style={styles.frameView}>
-              <ImageBackground
-                style={styles.imageIcon}
-                resizeMode="cover"
-                source={require("../../assets/image.png")}
-              >
-                <Image
-                  style={styles.favoriteIcon}
+              <View style={styles.frameView}>
+                <ImageBackground
+                  style={styles.imageIcon}
                   resizeMode="cover"
-                  source={require("../../assets/favorite.png")}
-                />
-              </ImageBackground>
-              <View style={styles.tokyoJapanParent}>
-              <TouchableOpacity onPress={pop}>
-                <Text style={styles.tokyoJapan}>Tokyo, Japan</Text>
-                <Text style={styles.forFlight}>
-                  <Text style={styles.text}>$659.00</Text>
-                  <Text style={styles.text1}>{` `}</Text>
-                  <Text style={styles.forFlight1}>for flight</Text>
-                </Text>
-                </TouchableOpacity>
+                  source={require("../../assets/image.png")}
+                >
+                  <Image
+                    style={styles.favoriteIcon}
+                    resizeMode="cover"
+                    source={require("../../assets/favorite.png")}
+                  />
+                </ImageBackground>
+                <View style={styles.tokyoJapanParent}>
+                  <TouchableOpacity onPress={pop}>
+                    <Text style={styles.tokyoJapan}>Tokyo, Japan</Text>
+                    <Text style={styles.forFlight}>
+                      <Text style={styles.text}>$659.00</Text>
+                      <Text style={styles.text1}>{` `}</Text>
+                      <Text style={styles.forFlight1}>for flight</Text>
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
             </ScrollView>
           </View>
-           </View>
+        </View>
         <View style={styles.exploreDifferentPartsOfTheParent}>
           <View>
             <Text
@@ -175,11 +179,11 @@ const Explore = () => {
             </Text>
           </View>
           <TouchableOpacity onPress={E2}>
-          <Image
-            style={styles.frameChild}
-            resizeMode="cover"
-            source={require("../../assets/Group 39.png")}
-          />
+            <Image
+              style={styles.frameChild}
+              resizeMode="cover"
+              source={require("../../assets/Group 39.png")}
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -191,11 +195,10 @@ const styles = StyleSheet.create({
   parentPosition: {
     left: 0,
     position: "absolute",
-    
   },
 
   theWorldAwaitsTypo: {
-   fontWeight: "500",
+    fontWeight: "500",
   },
 
   theWorldAwaits: {
@@ -207,28 +210,24 @@ const styles = StyleSheet.create({
   uncoverYourNext: {
     lineHeight: 19,
     width: 396,
-  
   },
   theWorldAwaitsParent: {
     width: 350,
   },
 
-  frameGroup: {
+  //frameGroup: {},
 
-  },
   exploreDifferentParts: {
-  
     textAlign: "left",
-    marginTop:-12,
+    marginTop: -12,
   },
   favoriteIcon: {
     width: 24,
     height: 24,
-    left:-10,
-    top:11,
+    left: -10,
+    top: 11,
   },
   imageIcon: {
-
     width: 187,
     height: 128,
     justifyContent: "flex-end",
@@ -237,13 +236,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   tokyoJapan: {
-
     textAlign: "left",
   },
 
-
   forFlight: {
-
     textAlign: "left",
   },
   tokyoJapanParent: {
@@ -254,43 +250,35 @@ const styles = StyleSheet.create({
     top: 40,
   },
   imageGroup: {
-  
     top: 0,
-
   },
   imageContainer: {
-
     top: 0,
-    marginLeft:10,
-
+    marginLeft: 10,
   },
   frameView: {
-  
     top: 0,
-    marginLeft:10,
-  
-    
+    marginLeft: 10,
   },
   popularDestinations: {
-    width:'97.5%',
+    width: "97.5%",
     marginTop: 12,
-    display:'flex',
-    flexDirection:'row',
-    right:5,
-
+    display: "flex",
+    flexDirection: "row",
+    right: 5,
   },
   exploreDifferentPartsOfTheParent: {
     marginTop: 34,
   },
   findYourPreferred: {
-    marginTop:5,
-    width: '90%',
+    marginTop: 5,
+    width: "90%",
   },
   frameChild: {
     height: 272,
     marginTop: 12,
-    width:'90%',
-    borderRadius:10,
+    width: "90%",
+    borderRadius: 10,
   },
   frameParent: {
     top: 66,
@@ -299,102 +287,12 @@ const styles = StyleSheet.create({
   },
   explore: {
     flex: 1,
-    top:10,
- 
+    top: 10,
+    //backgroundColor:"#FFFF",
   },
 });
 
 export default Explore;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import React from 'react';
 // import { StatusBar } from 'expo-status-bar';
@@ -403,13 +301,13 @@ export default Explore;
 
 // const Explore = function({navigation}){
 //  const hOME = function(){
-//  navigation.navigate('home'); 
+//  navigation.navigate('home');
 //  };
 
 //  const mytrips = function(){
 // navigation.navigate('MyTrips');
 //  };
- 
+
 //  const Profile = function(){
 // navigation.navigate('profile');
 //  };
@@ -429,23 +327,12 @@ export default Explore;
 //   </View>
 //   {/* <View style={styles.pic}>
 //   <ScrollView horizontal setshowsHorizontalScrollIndicator={false}>
-//    <Image source={require('../Assets/tok.png')}/>  
- 
+//    <Image source={require('../Assets/tok.png')}/>
 
- 
 //   </ScrollView>
 //   </View> */}
 
-
-
 //  </View>
-
-
-
-
-
-
-
 
 //     <View style={styles.footer}>
 //         <TouchableOpacity style={styles.footerItem} onPress={hOME} >
@@ -480,13 +367,12 @@ export default Explore;
 
 // // right:'42%',
 
-
 // },
 
 //   con:{
 //   top:'2.5%',
 //   },
-  
+
 // line:{
 // borderTopWidth:1,
 // borderTopColor:'#434343',
@@ -494,16 +380,12 @@ export default Explore;
 // marginLeft:20,
 //  marginRight:20,
 
-
-
-
 // },
 //   container2: {
 //     display:'flex',
 //     flexDirection:'column',
 //     alignItems:'center',
- 
-    
+
 //   },
 //   GO:{
 //     fontSize:16,
@@ -528,12 +410,12 @@ export default Explore;
 //     },
 //     footer: {
 //       flexDirection: 'row',
-    
+
 //       alignItems: 'center',
 //       backgroundColor: 'white',
-//       height: 100, 
+//       height: 100,
 //       borderTopWidth: 1,
-//       borderTopColor: '#999', 
+//       borderTopColor: '#999',
 //       position:'static',
 //       top:'120%',
 //     },
@@ -548,7 +430,4 @@ export default Explore;
 //       fontWeight: 'bold',
 //     },
 
-
-
 // });
-

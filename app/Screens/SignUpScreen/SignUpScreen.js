@@ -169,6 +169,7 @@ const SignUpScreen = () => {
           <CustomInput
             placeholder="Email"
             value={Email}
+            onChangeText={setEmail}
             setValue={setEmail}
             bordercolor={passwordError ? "red" : "#7D7D7D"}
             borderRadius={15}
@@ -181,6 +182,7 @@ const SignUpScreen = () => {
           <CustomInput
             placeholder="Enter Password"
             value={Password}
+            onChangeText={setPassword}
             setValue={setPassword}
             secureTextEntry={!showPassword}
             bordercolor={passwordError ? "red" : "#7D7D7D"}
@@ -201,6 +203,7 @@ const SignUpScreen = () => {
           <CustomInput
             placeholder="Confirm Password"
             value={PasswordRepeat}
+            onChangeText={setPasswordRepeat}
             setValue={setPasswordRepeat}
             secureTextEntry={!showPasswordRepeat}
             bordercolor={passwordError? "red" : "#7D7D7D"}

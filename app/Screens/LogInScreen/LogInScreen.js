@@ -64,6 +64,7 @@ const LogInScreen = () => {
         <CustomInput
           placeholder="Email"
           value={email}
+          onChangeText={setEmail}
           setValue={setEmail}
           bordercolor={emailError ? "red" : "#7D7D7D"}
           borderRadius={15}
@@ -74,6 +75,7 @@ const LogInScreen = () => {
         <CustomInput
           placeholder="Password"
           value={password}
+          onChangeText={setPassword}
           setValue={setPassword}
           secureTextEntry={true}
           bordercolor={passwordError ? "red" : "#7D7D7D"}

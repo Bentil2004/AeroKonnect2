@@ -31,7 +31,13 @@ const MyAccount = () => {
           style={styles.image}
           resizeMode="contain" 
         />
-        <Text style={styles.welcome}>Welcome! Please sign up to access to enjoy the full mobile experience</Text>
+        <Text style={styles.title}>AEROKONNECT</Text>
+        <Text style={styles.subtitle}>SEAMLESS TRAVELS, BOUNDLESS HORIZONS</Text>
+        <Text style={styles.welcome}>Welcome to AeroKonnect</Text>
+        <Text style={styles.description}>
+          Join us today to unlock the full potential of our mobile experience! Enjoy seamless trip
+          management, exclusive offers, and personalized features designed just for you.
+        </Text>
         <View style={styles.benefitsContainer}>
           <Text style={styles.benefitsTitle}>Benefits of having an account:</Text>
           <View style={styles.benefitsList}>
@@ -39,6 +45,7 @@ const MyAccount = () => {
             <Text style={styles.benefitsItem}>• Manage bookings</Text>
             <Text style={styles.benefitsItem}>• Access exclusive offers</Text>
           </View>
+          
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
@@ -74,58 +81,70 @@ const styles = StyleSheet.create({
     height: 200,
     marginBottom: 20,
   },
+  title: {
+    fontSize: 23,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  subtitle: {
+    fontSize:20,
+    color: '#00527e',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
   welcome: {
     fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  description: {
+    fontSize: 16,
     marginBottom: 20,
-    fontSize: 21,
-    textAlign: 'center', 
+    textAlign: 'center',
+    paddingHorizontal: 20,
   },
   benefitsContainer: {
     marginBottom: 30,
-    padding: 30,
-    backgroundColor: '#E4EAF1',
-    borderColor: '#E4EAF1',
-    borderRadius: 10,
-    width: 356,
-    height: 150,
+    padding: 20,
+    //backgroundColor: '#E4EAF1',
+    borderRadius: 6,
+    width: 340,
+    borderWidth: 1,
+    borderColor: '#dddd',
   },
   benefitsTitle: {
     fontWeight: 'bold',
     marginBottom: 10,
   },
   benefitsList: {
-    marginLeft: 20,
+    marginLeft: 10,
   },
   benefitsItem: {
     marginBottom: 5,
   },
   buttonContainer: {
     marginTop: 20,
-    alignItems: 'center', 
+    borderWidth: 1,
+    borderColor: '#dddd',
+    padding: 15,
+    borderRadius: 6,
   },
   button: {
     marginTop: 10,
     padding: 15,
     backgroundColor: '#00527e',
     borderRadius: 10,
-    width: 350,
-    height: 56,
     alignItems: 'center',
+    width: 300,
   },
   buttonText: {
     color: 'white',
-    fontSize: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
+    fontSize: 18,
   },
   backButton: {
     position: 'absolute',
-    top: -20,
-    left: 20,
-  },
-  backText: {
-    fontSize: 20,
-    color: 'black',
+    top: 10,
+    left: 10,
   },
 });
 
