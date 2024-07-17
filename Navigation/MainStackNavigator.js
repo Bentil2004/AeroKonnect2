@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+
 
 import SplashScreen from "../app/Screens/SplashScreen/SplashScreen";
 import SignUpDetailsScreen from "../app/Screens/SignUpDetailsScreen/SignUpDetailsScreen";
@@ -53,6 +53,8 @@ import SettingsScreen from "../app/Screens/ProfileScreen/SettingsScreen";
 import Map from "../app/Screens/Map";
 import explore from "../app/Screens/ExploreScreen/ExploreScreen";
 import explore2 from "../app/Screens/ExploreScreen/Explore2";
+import AvailableFilght from "../app/Screens/AvailableFLight/AvailableFlight1";
+import Flightdetails from "../app/Screens/Flightdetails/Flightdetails1.js";
 
 const Stack = createNativeStackNavigator();
 
@@ -109,6 +111,8 @@ const MainStackNavigator = () => {
         <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
         <Stack.Screen name="explore" component={explore} />
         <Stack.Screen name="explore2" component={explore2} />
+        <Stack.Screen name="AvailableFlight" component={AvailableFilght} />
+        <Stack.Screen name="Flightdetails" component={Flightdetails} />
         {/* <Stack.Screen name="TermsAndConditions" component={TermsAndConditions} /> */}
       </Stack.Navigator>
     </NavigationContainer>
