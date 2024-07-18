@@ -83,13 +83,10 @@ const MultiCity = function ({ navigation }) {
     <View style={{ flex: 1 }}>
       <StatusBar style="auto" />
 
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <View contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.top}>
           <TouchableOpacity>
-            <Image
-              style={styles.topback}
-              source={require("../../assets/Baackward.png")}
-            />
+          <Text style={styles.backButton} onPress={() => navigation.navigate('BottomTab')}>←</Text>
           </TouchableOpacity>
           <Text style={styles.book}>Book your flight</Text>
         </View>
@@ -209,7 +206,7 @@ const MultiCity = function ({ navigation }) {
             </View>
           </ScrollView>
         </View>
-      </ScrollView>
+      </View>
     </View>
   );
 };
@@ -225,6 +222,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#434343",
   },
+  backButton: {
+    // position: 'absolute',
+     left: 10,
+     fontSize: 29,
+     color: 'black',
+   },
   top: {
     display: "flex",
     flexDirection: "row",
@@ -238,8 +241,8 @@ const styles = StyleSheet.create({
   container2: {
     display: "flex",
     flexDirection: "column",
-
     marginTop: 23,
+    //paddingBottom:100,
   },
   butt: {
     marginTop: 40,

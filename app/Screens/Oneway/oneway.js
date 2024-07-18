@@ -18,10 +18,7 @@ const OneWay = function({ navigation }){
 <View style={styles.top}>
 
  <TouchableOpacity>
- <Image
-style={styles.topback}
- source={require('../../assets/Baackward.png')}
-   />
+ <Text style={styles.backButton} onPress={() => navigation.navigate('BottomTab')}>←</Text>
  </TouchableOpacity>
 <Text style={styles.book}>
   Book your flight
@@ -78,6 +75,12 @@ const styles = StyleSheet.create({
 topback:{
 height:29,
 width:29,
+},
+backButton: {
+ // position: 'absolute',
+  left: 10,
+  fontSize: 29,
+  color: 'black',
 },
 
 book:{
