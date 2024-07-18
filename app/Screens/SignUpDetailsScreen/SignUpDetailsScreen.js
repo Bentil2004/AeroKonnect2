@@ -20,6 +20,7 @@ import { insert } from "@supabase/supabase-js";
 
 // Import the Supabase client
 import { createClient } from "@supabase/supabase-js";
+import { useRoute } from "@react-navigation/native";
 const supabaseUrl = "https://ucusngylouypldsoltnd.supabase.co";
 const supabaseAnonKey =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVjdXNuZ3lsb3V5cGxkc29sdG5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTcyNjgxMDksImV4cCI6MjAzMjg0NDEwOX0.cQlMeHLv1Dd6gksfz0lO6Sd3asYfgXZrkRuCxIMnwqw";
@@ -52,6 +53,13 @@ const SignUpDetailsScreen = ({ navigation }) => {
     }
   }, []);
 
+  function generateFourDigitCode() {
+    return Math.floor(1000 + Math.random() * 100000000);
+  }
+
+  const { userId } = useRoute().params
+  console.log(userId)
+
   const handleAerokonnectUserSubmit = async (
     fname,
     lname,
@@ -60,7 +68,8 @@ const SignUpDetailsScreen = ({ navigation }) => {
     nationality
   ) => {
     const data = {
-      userid: 34555,
+      userid: generateFourDigitCode(),
+      super_uuid: userId,
       phonenumber: phonenumber,
       nationality: nationality,
       notificationupdate: false,
@@ -74,9 +83,7 @@ const SignUpDetailsScreen = ({ navigation }) => {
       .insert(data)
       .then((res) => {
         if (res.status == 201) {
-          navigation.navigate("CompletionScreen", {
-            phoneNumber: formattedValue,
-          });
+          navigation.navigate("CompletionScreen");
         } else {
           Alert.alert("Failed to register user.");
           console.log(`Inserted user: ${res}`);

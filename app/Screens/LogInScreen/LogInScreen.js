@@ -27,13 +27,14 @@ const LogInScreen = () => {
 
   async function signInWithEmail() {
     if (validateForm()) {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { error, data } = await supabase.auth.signInWithPassword({
         email: email,
         password: password,
       });
       if (error) {
         Alert.alert(error.message);
       } else {
+        console.log('login successful',data.user.id)
         navigation.navigate("BottomTab");
       }
     }

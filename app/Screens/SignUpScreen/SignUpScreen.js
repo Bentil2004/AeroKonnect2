@@ -81,8 +81,15 @@ const SignUpScreen = () => {
     const { user, session, error } = await supabase.auth
       .signUp({ email, password })
       .then((res) => {
-        console.log("User signed up:", res);
-        navigation.navigate("SignUpDetails");
+        if(res.data.user){
+          console.log("User signed up:", res);
+          navigation.navigate("SignUpDetails",{
+            userId: res.data.user,
+          });
+        }else{
+          console.log("User sign up failed:", res);
+          Alert.alert("Error", "Failed to sign up");
+        }
       })
       .catch((error) => {
         console.error("Sign up error:", error);

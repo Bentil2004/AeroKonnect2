@@ -11,7 +11,7 @@ const supabaseAnonKey =
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 const MyAccount = () => {
-  const [session, setSession] = useState<Session | null>(null);
+  const [session, setSession] = useState(null);
   const navigation = useNavigation();
 
   useEffect(() => {

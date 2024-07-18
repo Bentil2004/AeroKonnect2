@@ -61,11 +61,13 @@ const MainStackNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="SplashScreen" component={SplashScreen} />
-        <Stack.Screen name="PassengersDetails" component={PassengersDetails} />
+        <Stack.Screen name="EmailVerification" component={EmailVerificationScreen} />
+        <Stack.Screen name="SeatSelection" component={SeatSelection} />
+        <Stack.Screen name="PhoneNumberVerification" component={PhoneNumberVerificationScreen} />
         <Stack.Screen name="SignUpDetails" component={SignUpDetailsScreen} />
+        <Stack.Screen name="PassengersDetails" component={PassengersDetails} />
         <Stack.Screen name="Map" component={Map} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
-        <Stack.Screen name="SeatSelection" component={SeatSelection} />
         <Stack.Screen name="CompletionScreen" component={CompletionScreen} />
         <Stack.Screen name="PopularDestination" component={PopularDestination} />
         <Stack.Screen name="BottomTab" component={BottomTabNavigator} />
@@ -93,9 +95,7 @@ const MainStackNavigator = () => {
         <Stack.Screen name="LogIn" component={LogInScreen} />
         <Stack.Screen name="ForgotPasswordPhone" component={ForgotPasswordPhone}/>
         <Stack.Screen name="Notification" component={Notification} />
-        <Stack.Screen name="PhoneNumberVerification" component={PhoneNumberVerificationScreen} />
         <Stack.Screen name="PhoneNumberVerificationForgotPassword" component={PhoneNumberVerificationScreenForgotPassword} />
-        <Stack.Screen name="EmailVerification" component={EmailVerificationScreen} />
         <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
         <Stack.Screen name="ToDo" component={ToDoScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
