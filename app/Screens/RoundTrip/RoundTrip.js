@@ -26,9 +26,7 @@ const RoundTrip = function ({ navigation }) {
       <StatusBar style="auto" />
 
       <View style={styles.top}>
-        <TouchableOpacity>
-          <Image style={styles.topback} source={require('../../assets/Baackward.png')} />
-        </TouchableOpacity>
+      <Text style={styles.backButton} onPress={() => navigation.navigate('BottomTab')}>←</Text>
         <Text style={styles.book}>Book your flight</Text>
       </View>
 
@@ -106,6 +104,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#434343',
   },
+  backButton: {
+    // position: 'absolute',
+     left: 10,
+     fontSize: 29,
+     color: 'black',
+   },
   top: {
     display: 'flex',
     flexDirection: 'row',

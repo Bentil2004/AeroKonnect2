@@ -59,13 +59,13 @@ const Map = () => {
             : null;
 
           return {
-            id: place.place_id, // Add ID to pass as a unique key
+            id: place.place_id, 
             name: place.name,
             address: place.vicinity,
             photoUrl,
-            description: place.types.join(', '), // Add a placeholder description
-            price: (Math.random() * 1000).toFixed(2), // Add a placeholder price
-            images: [photoUrl, photoUrl, photoUrl], // Add placeholder images
+            description: place.types.join(', '), 
+            price: (Math.random() * 1000).toFixed(2), 
+            images: [photoUrl, photoUrl, photoUrl], 
             todo: [{ title: "Activity 1", description: "Description 1", image: photoUrl }],
           };
         });

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Text,
   StyleSheet,
@@ -8,185 +8,115 @@ import {
   ScrollView,
   StatusBar,
   TouchableOpacity,
+  RefreshControl,
+  Platform
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const Explore = () => {
   const navigation = useNavigation();
-  const E2 = function () {
-    navigation.navigate("Map");
+  const [places, setPlaces] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const fetchRandomPlaces = async () => {
+    const lat = 37.7749;
+    const lng = -122.4194;
+    const placesUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=1500&key=AIzaSyCLkvlVymR7LU-xm61NjaWDFHtUjT9f5cs`;
+
+    try {
+      const response = await fetch(placesUrl);
+      const result = await response.json();
+      if (result.results && result.results.length > 0) {
+        const randomPlaces = result.results.sort(() => 0.5 - Math.random()).slice(0, 5);
+        const placeDetailsPromises = randomPlaces.map(async (place) => {
+          const photoUrl = place.photos
+            ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${place.photos[0].photo_reference}&key=AIzaSyCLkvlVymR7LU-xm61NjaWDFHtUjT9f5cs`
+            : null;
+
+          return {
+            name: place.name,
+            description: place.vicinity,
+            photoUrl,
+          };
+        });
+
+        const resolvedPlaceDetails = await Promise.all(placeDetailsPromises);
+        setPlaces(resolvedPlaceDetails);
+      } else {
+        setPlaces([]);
+      }
+    } catch (error) {
+      console.error(error);
+      setPlaces([]);
+    }
   };
-  const pop = function () {
-    navigation.navigate("PopularDestination");
-  };
+
+  useEffect(() => {
+    console.log('Component mounted');
+    fetchRandomPlaces();
+  }, []);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    fetchRandomPlaces().then(() => setRefreshing(false));
+  }, []);
+
+  console.log('Places:', places);
+
   return (
     <View style={styles.explore}>
       <StatusBar style="auto" />
-      <View style={styles.frameParent}>
-        <View>
-          <View style={styles.frameGroup}>
-            <View style={styles.theWorldAwaitsParent}>
-              <Text style={[styles.theWorldAwaits, styles.theWorldAwaitsTypo]}>
-                The World Awaits
-              </Text>
-              <Text style={[styles.uncoverYourNext, styles.yourTypo]}>
-                Uncover Your Next Escape with AeroKonnect
-              </Text>
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+      >
+        <View style={styles.frameParent}>
+          <View>
+            <View style={styles.frameGroup}>
+              <View style={styles.theWorldAwaitsParent}>
+                <Text style={[styles.theWorldAwaits, styles.theWorldAwaitsTypo]}>
+                  The World Awaits
+                </Text>
+                <Text style={[styles.uncoverYourNext, styles.yourTypo]}>
+                  Uncover Your Next Escape with AeroKonnect
+                </Text>
+              </View>
             </View>
-            {/* <Image
-              style={styles.searchIcon}
-              resizeMode="cover"
-              source={require("../assets/search1.png")}
-            /> */}
           </View>
-        </View>
-        <View style={styles.exploreDifferentPartsOfTheParent}>
-          <Text
-            style={[styles.exploreDifferentParts, styles.theWorldAwaitsTypo]}
-          >
-            Explore different parts of the world
-          </Text>
-          <View style={styles.popularDestinations}>
+          <View style={styles.exploreDifferentPartsOfTheParent}>
+            <Text style={[styles.exploreDifferentParts, styles.theWorldAwaitsTypo]}>
+              Explore different parts of the world
+            </Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <View style={styles.imageGroup}>
-                <ImageBackground
-                  style={styles.imageIcon}
-                  resizeMode="cover"
-                  source={require("../../assets/image.png")}
-                >
-                  <Image
-                    style={styles.favoriteIcon}
-                    resizeMode="cover"
-                    source={require("../../assets/favorite.png")}
-                  />
-                </ImageBackground>
-                <View style={styles.tokyoJapanParent}>
-                  <TouchableOpacity onPress={pop}>
-                    <Text style={styles.tokyoJapan}>Tokyo, Japan</Text>
-                    <Text style={styles.forFlight}>
-                      <Text style={styles.text}>$659.00</Text>
-                      <Text style={styles.text1}>{` `}</Text>
-                      <Text style={styles.forFlight1}>for flight</Text>
-                    </Text>
-                  </TouchableOpacity>
+              {places.map((place, index) => (
+                <View key={index} style={styles.imageGroup}>
+                  <ImageBackground style={styles.imageIcon} resizeMode="cover" source={{ uri: place.photoUrl }}>
+                  </ImageBackground>
+                  <View style={styles.tokyoJapanParent}>
+                    <TouchableOpacity onPress={() => navigation.navigate("PopularDestination", { place })}>
+                      <Text style={styles.tokyoJapan}>{place.name}</Text>
+                      <Text style={styles.forFlight}>{place.description}</Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
-              <View style={styles.imageContainer}>
-                <ImageBackground
-                  style={styles.imageIcon}
-                  resizeMode="cover"
-                  source={require("../../assets/image.png")}
-                >
-                  <Image
-                    style={styles.favoriteIcon}
-                    resizeMode="cover"
-                    source={require("../../assets/favorite.png")}
-                  />
-                </ImageBackground>
-                <View style={styles.tokyoJapanParent}>
-                  <TouchableOpacity onPress={pop}>
-                    <Text style={styles.tokyoJapan}>Tokyo, Japan</Text>
-                    <Text style={styles.forFlight}>
-                      <Text style={styles.text}>$659.00</Text>
-                      <Text style={styles.text1}>{` `}</Text>
-                      <Text style={styles.forFlight1}>for flight</Text>
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-              <View style={styles.frameView}>
-                <ImageBackground
-                  style={styles.imageIcon}
-                  resizeMode="cover"
-                  source={require("../../assets/image.png")}
-                >
-                  <Image
-                    style={styles.favoriteIcon}
-                    resizeMode="cover"
-                    source={require("../../assets/favorite.png")}
-                  />
-                </ImageBackground>
-                <View style={styles.tokyoJapanParent}>
-                  <TouchableOpacity onPress={pop}>
-                    <Text style={styles.tokyoJapan}>Tokyo, Japan</Text>
-                    <Text style={styles.forFlight}>
-                      <Text style={styles.text}>$659.00</Text>
-                      <Text style={styles.text1}>{` `}</Text>
-                      <Text style={styles.forFlight1}>for flight</Text>
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-              <View style={styles.frameView}>
-                <ImageBackground
-                  style={styles.imageIcon}
-                  resizeMode="cover"
-                  source={require("../../assets/image.png")}
-                >
-                  <Image
-                    style={styles.favoriteIcon}
-                    resizeMode="cover"
-                    source={require("../../assets/favorite.png")}
-                  />
-                </ImageBackground>
-                <View style={styles.tokyoJapanParent}>
-                  <TouchableOpacity onPress={pop}>
-                    <Text style={styles.tokyoJapan}>Tokyo, Japan</Text>
-                    <Text style={styles.forFlight}>
-                      <Text style={styles.text}>$659.00</Text>
-                      <Text style={styles.text1}>{` `}</Text>
-                      <Text style={styles.forFlight1}>for flight</Text>
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-              <View style={styles.frameView}>
-                <ImageBackground
-                  style={styles.imageIcon}
-                  resizeMode="cover"
-                  source={require("../../assets/image.png")}
-                >
-                  <Image
-                    style={styles.favoriteIcon}
-                    resizeMode="cover"
-                    source={require("../../assets/favorite.png")}
-                  />
-                </ImageBackground>
-                <View style={styles.tokyoJapanParent}>
-                  <TouchableOpacity onPress={pop}>
-                    <Text style={styles.tokyoJapan}>Tokyo, Japan</Text>
-                    <Text style={styles.forFlight}>
-                      <Text style={styles.text}>$659.00</Text>
-                      <Text style={styles.text1}>{` `}</Text>
-                      <Text style={styles.forFlight1}>for flight</Text>
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
+              ))}
             </ScrollView>
           </View>
-        </View>
-        <View style={styles.exploreDifferentPartsOfTheParent}>
-          <View>
-            <Text
-              style={[styles.exploreDifferentParts, styles.theWorldAwaitsTypo]}
-            >
-              Explore map
-            </Text>
-            <Text style={[styles.findYourPreferred, styles.yourTypo]}>
-              Find your preferred destinations on the map and book your next
-              flight
-            </Text>
+          <View style={styles.exploreDifferentPartsOfTheParent}>
+            <View>
+              <Text style={[styles.exploreDifferentParts, styles.theWorldAwaitsTypo]}>
+                Explore map
+              </Text>
+              <Text style={[styles.findYourPreferred, styles.yourTypo]}>
+                Find your preferred destinations on the map and book your next flight
+              </Text>
+            </View>
+            <TouchableOpacity onPress={() => navigation.navigate("Map")}>
+              <Image style={styles.frameChild} resizeMode="cover" source={require("../../assets/Group 39.png")} />
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={E2}>
-            <Image
-              style={styles.frameChild}
-              resizeMode="cover"
-              source={require("../../assets/Group 39.png")}
-            />
-          </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -196,15 +126,12 @@ const styles = StyleSheet.create({
     left: 0,
     position: "absolute",
   },
-
   theWorldAwaitsTypo: {
     fontWeight: "500",
   },
-
   theWorldAwaits: {
     lineHeight: 22,
     width: 157,
-
     textAlign: "left",
   },
   uncoverYourNext: {
@@ -214,31 +141,20 @@ const styles = StyleSheet.create({
   theWorldAwaitsParent: {
     width: 350,
   },
-
-  //frameGroup: {},
-
   exploreDifferentParts: {
     textAlign: "left",
     marginTop: -12,
-  },
-  favoriteIcon: {
-    width: 24,
-    height: 24,
-    left: -10,
-    top: 11,
   },
   imageIcon: {
     width: 187,
     height: 128,
     justifyContent: "flex-end",
-
     overflow: "hidden",
     flexDirection: "row",
   },
   tokyoJapan: {
     textAlign: "left",
   },
-
   forFlight: {
     textAlign: "left",
   },
@@ -246,26 +162,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignItems: "left",
   },
-  imageParent: {
-    top: 40,
-  },
   imageGroup: {
-    top: 0,
-  },
-  imageContainer: {
-    top: 0,
     marginLeft: 10,
-  },
-  frameView: {
-    top: 0,
-    marginLeft: 10,
-  },
-  popularDestinations: {
-    width: "97.5%",
-    marginTop: 12,
-    display: "flex",
-    flexDirection: "row",
-    right: 5,
   },
   exploreDifferentPartsOfTheParent: {
     marginTop: 34,
@@ -288,146 +186,11 @@ const styles = StyleSheet.create({
   explore: {
     flex: 1,
     top: 10,
-    //backgroundColor:"#FFFF",
+  },
+  scrollContainer: {
+    paddingBottom: 20,
   },
 });
 
 export default Explore;
 
-// import React from 'react';
-// import { StatusBar } from 'expo-status-bar';
-// import { StyleSheet, Text, TextInput,  View, Image, ScrollView, TouchableOpacity, Modal, Picker } from 'react-native';
-// import { Button } from 'react-native-elements';
-
-// const Explore = function({navigation}){
-//  const hOME = function(){
-//  navigation.navigate('home');
-//  };
-
-//  const mytrips = function(){
-// navigation.navigate('MyTrips');
-//  };
-
-//  const Profile = function(){
-// navigation.navigate('profile');
-//  };
-// return(
-//  <View style={styles.container}>
-//  <StatusBar style='auto' />
-
-//  <View style={styles.column}>
-//           <Text style={styles.Ama}>The World Awaits </Text>
-//           <Text style={styles.GO}>Uncover Your Next Escape with AeroKonnect</Text>
-// </View>
-//   <View style={styles.line}></View>
-//  <View style={styles.container2}>
-
-//   <View style={styles.con}>
-//     <Text style={{right:'8%', fontSize:18, fontWeight:'bold',color:'#434343',}}>Explore different parts of the world</Text>
-//   </View>
-//   {/* <View style={styles.pic}>
-//   <ScrollView horizontal setshowsHorizontalScrollIndicator={false}>
-//    <Image source={require('../Assets/tok.png')}/>
-
-//   </ScrollView>
-//   </View> */}
-
-//  </View>
-
-//     <View style={styles.footer}>
-//         <TouchableOpacity style={styles.footerItem} onPress={hOME} >
-//            <Image source={require('./../Assets/home.jpg')} />
-//         </TouchableOpacity>
-//         <TouchableOpacity style={styles.footerItem} onPress={Explore} >
-//            <Image source={require('./../Assets/Explore.png')} />
-//         </TouchableOpacity>
-
-//         <TouchableOpacity style={styles.footerItem} onPress={mytrips} >
-//           <Image source={require('./../Assets/mytrips.jpg')} />
-//         </TouchableOpacity>
-
-//         <TouchableOpacity style={styles.footerItem} onPress={Profile} >
-//           <Image source={require('./../Assets/profile.jpg')} />
-//         </TouchableOpacity>
-//      </View>
-//  </View>
-// );
-// }
-
-// export default Explore
-
-// const styles = StyleSheet.create({
-
-// pic:{
-// display:'flex',
-// // flexDirection:'row',
-// justifyContent:'space-between',
-// // position:'relative',
-// top:'3%',
-
-// // right:'42%',
-
-// },
-
-//   con:{
-//   top:'2.5%',
-//   },
-
-// line:{
-// borderTopWidth:1,
-// borderTopColor:'#434343',
-// top:'1%',
-// marginLeft:20,
-//  marginRight:20,
-
-// },
-//   container2: {
-//     display:'flex',
-//     flexDirection:'column',
-//     alignItems:'center',
-
-//   },
-//   GO:{
-//     fontSize:16,
-//     // fontWeight:'bold',
-//  },
-//  column:{
-//    marginTop:'15%',
-//    display:"flex",
-//    flexDirection:'column',
-//    justifyContent:'space-between',
-//    color: 'black',
-//    paddingLeft:'7%',
-//  },
-//   Ama: {
-//     fontWeight:'bold',
-//     color:'#434343',
-//     fontSize:18,
-//   },
-//     container:{
-//     flex:1,
-//     backgroundColor:'white',
-//     },
-//     footer: {
-//       flexDirection: 'row',
-
-//       alignItems: 'center',
-//       backgroundColor: 'white',
-//       height: 100,
-//       borderTopWidth: 1,
-//       borderTopColor: '#999',
-//       position:'static',
-//       top:'120%',
-//     },
-//     footerItem: {
-//         flex: 1,
-//         alignItems: 'center',
-//      justifyContent: 'center',
-//      bottom:16,
-//     },
-//     footerText: {
-//       fontSize: 16,
-//       fontWeight: 'bold',
-//     },
-
-// });

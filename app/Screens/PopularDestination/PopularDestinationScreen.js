@@ -19,6 +19,10 @@ const PopularDestinationScreen = ({ route }) => {
   const { destination } = route.params;
   const navigation = useNavigation();
 
+  const onBookPressed = () => {
+    navigation.navigate("Oneway");
+  };
+
   const renderImage = ({ item }) => (
     <Image source={{ uri: item }} style={styles.imageThumbnail} />
   );
@@ -52,7 +56,7 @@ const PopularDestinationScreen = ({ route }) => {
             <Text style={styles.title}>{destination.name}</Text>
             <Text style={styles.price}>${destination.price} for a flight</Text>
           </View>
-          <TouchableOpacity style={styles.bookNowButton}>
+          <TouchableOpacity style={styles.bookNowButton} onPress={onBookPressed}>
             <Text style={styles.bookNowText}>Book a flight</Text>
           </TouchableOpacity>
         </View>

@@ -98,12 +98,18 @@ const HomeScreen = () => {
             ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${place.photos[0].photo_reference}&key=AIzaSyCLkvlVymR7LU-xm61NjaWDFHtUjT9f5cs`
             : null;
 
-          return {
-            name: place.name,
-            address: place.vicinity,
-            photoUrl,
-          };
-        });
+
+            return {
+              id: place.place_id, 
+              name: place.name,
+              address: place.vicinity,
+              photoUrl,
+              description: place.types.join(', '), 
+              price: (Math.random() * 1000).toFixed(3), 
+              images: [photoUrl, photoUrl, photoUrl], 
+              todo: [{ title: "Activity 1", description: "Description 1", image: photoUrl }],
+            };
+          });
 
         const resolvedPlaceDetails = await Promise.all(placeDetailsPromises);
         console.log('Resolved Place Details:', resolvedPlaceDetails);
@@ -334,7 +340,7 @@ const styles = StyleSheet.create({
   },
   flatListContainer: {
     paddingHorizontal: 16,
-    paddingBottom: 35,
+    paddingBottom: 50,
   },
   aiIcon: {
     position: "absolute",

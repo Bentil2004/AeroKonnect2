@@ -61,8 +61,9 @@ const MainStackNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="SplashScreen" component={SplashScreen} />
-        <Stack.Screen name="Map" component={Map} />
+        <Stack.Screen name="PassengersDetails" component={PassengersDetails} />
         <Stack.Screen name="SignUpDetails" component={SignUpDetailsScreen} />
+        <Stack.Screen name="Map" component={Map} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="SeatSelection" component={SeatSelection} />
         <Stack.Screen name="CompletionScreen" component={CompletionScreen} />
@@ -82,7 +83,6 @@ const MainStackNavigator = () => {
         <Stack.Screen name="MultiCity" component={MultiCity} />
         <Stack.Screen name="Home" component={RoundTrip} />
         <Stack.Screen name="TripDetails" component={TripDetails} />
-        <Stack.Screen name="PassengersDetails" component={PassengersDetails} />
         <Stack.Screen name="EditDetails" component={EditDetails} />
         <Stack.Screen name="ChangePassword" component={ChangePassword} />
         <Stack.Screen name="DeleteAccount" component={DeleteAccount} />
