@@ -84,7 +84,7 @@ const SignUpScreen = () => {
         if(res.data.user){
           console.log("User signed up:", res);
           navigation.navigate("SignUpDetails",{
-            userId: res.data.user,
+            userId: res.data.user.id,
           });
         }else{
           console.log("User sign up failed:", res);
@@ -125,7 +125,6 @@ const SignUpScreen = () => {
       Alert.alert("Error", "Failed to sign in with Facebook");
     } else {
       console.log("User logged in with Facebook:", user);
-      // Navigate to the desired screen after login
     }
   };
 

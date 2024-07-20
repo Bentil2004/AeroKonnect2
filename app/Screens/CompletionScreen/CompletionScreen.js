@@ -17,7 +17,7 @@ const CompletionScreen = () => {
         style={styles.animation}
         source={require("../../assets/ConfirmationPulse.json")}
         autoPlay
-        loop
+        loop={false}
       />
 
       <Text style={styles.text}>

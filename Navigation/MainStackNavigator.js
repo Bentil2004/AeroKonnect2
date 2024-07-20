@@ -53,6 +53,7 @@ import SettingsScreen from "../app/Screens/ProfileScreen/SettingsScreen";
 import Map from "../app/Screens/Map";
 import explore from "../app/Screens/ExploreScreen/ExploreScreen";
 import explore2 from "../app/Screens/ExploreScreen/Explore2";
+//import PayStackTest from "./../app/Screens/PayStackTest";
 
 const Stack = createNativeStackNavigator();
 
@@ -62,6 +63,7 @@ const MainStackNavigator = () => {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="SplashScreen" component={SplashScreen} />
         <Stack.Screen name="EmailVerification" component={EmailVerificationScreen} />
+        {/* <Stack.Screen name="PaySack" component={PayStackTest} /> */}
         <Stack.Screen name="SeatSelection" component={SeatSelection} />
         <Stack.Screen name="PhoneNumberVerification" component={PhoneNumberVerificationScreen} />
         <Stack.Screen name="SignUpDetails" component={SignUpDetailsScreen} />

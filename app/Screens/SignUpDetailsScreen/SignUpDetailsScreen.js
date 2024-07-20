@@ -16,14 +16,12 @@ import PhoneInput from "react-native-phone-number-input";
 import CheckBox from "react-native-check-box";
 import RNPickerSelect from "react-native-picker-select";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { insert } from "@supabase/supabase-js";
-
-// Import the Supabase client
 import { createClient } from "@supabase/supabase-js";
 import { useRoute } from "@react-navigation/native";
+
+
 const supabaseUrl = "https://ucusngylouypldsoltnd.supabase.co";
-const supabaseAnonKey =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVjdXNuZ3lsb3V5cGxkc29sdG5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTcyNjgxMDksImV4cCI6MjAzMjg0NDEwOX0.cQlMeHLv1Dd6gksfz0lO6Sd3asYfgXZrkRuCxIMnwqw";
+const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVjdXNuZ3lsb3V5cGxkc29sdG5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTcyNjgxMDksImV4cCI6MjAzMjg0NDEwOX0.cQlMeHLv1Dd6gksfz0lO6Sd3asYfgXZrkRuCxIMnwqw";
 const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     storage: AsyncStorage,
@@ -46,6 +44,7 @@ const SignUpDetailsScreen = ({ navigation }) => {
   const [nationality, setNationality] = useState("");
 
   const firstNameInputRef = useRef(null);
+  const { userId } = useRoute().params;
 
   useEffect(() => {
     if (firstNameInputRef.current) {
@@ -53,84 +52,40 @@ const SignUpDetailsScreen = ({ navigation }) => {
     }
   }, []);
 
-  function generateFourDigitCode() {
-    return Math.floor(1000 + Math.random() * 100000000);
-  }
-
-  const { userId } = useRoute().params
-  console.log(userId)
-
-  const handleAerokonnectUserSubmit = async (
-    fname,
-    lname,
-    birthdate,
-    phonenumber,
-    nationality
-  ) => {
-    const data = {
-      userid: generateFourDigitCode(),
-      super_uuid: userId,
-      phonenumber: phonenumber,
-      nationality: nationality,
-      notificationupdate: false,
-      fname: fname,
-      lname: lname,
-      birthdate: birthdate,
-    };
-    console.log(data);
-    await supabase
-      .from("users")
-      .insert(data)
-      .then((res) => {
-        if (res.status == 201) {
-          navigation.navigate("CompletionScreen");
-        } else {
-          Alert.alert("Failed to register user.");
-          console.log(`Inserted user: ${res}`);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const generateFourDigitCode = () => {
+    return Math.floor(1000 + Math.random() * 10000);
   };
 
-  const handleSendVerification = () => {
-    if (
-      !firstName ||
-      !lastName ||
-      !formattedValue ||
-      !nationality ||
-      !acceptTerms
-    ) {
-      Alert.alert(
-        "Error",
-        "Please fill all fields and accept the Terms and Conditions."
-      );
+  const handleAerokonnectUserSubmit = async () => {
+    if (!firstName || !lastName || !formattedValue || !nationality || !acceptTerms) {
+      Alert.alert("Error", "Please fill all fields and accept the Terms and Conditions.");
       return;
     }
 
     setLoading(true);
-    const userDetails = {
-      firstName,
-      lastName,
-      dateOfBirth,
-      phoneNumber: formattedValue,
+
+    const userData = {
+      userid: generateFourDigitCode(),
+      authid: userId,
+      phonenumber: formattedValue,
       nationality,
-      acceptTerms,
-      regularUpdates,
+      notificationupdate: false,
+      fname: firstName,
+      lname: lastName,
+      birthdate: dateOfBirth,
     };
-    console.warn("User details:", userDetails);
 
-    setTimeout(() => {
+    try {
+      const { error } = await supabase.from("users").insert(userData);
+      if (error) throw error;
+
+      navigation.navigate("CompletionScreen");
+    } catch (error) {
+      Alert.alert("Failed to register user.");
+      console.log(error);
+    } finally {
       setLoading(false);
-      navigation.navigate("CompletionScreen", {
-        phoneNumber: formattedValue,
-      });
-    }, 1000);
-  };
-
-  const onTermsandConditionsPressed = () => {
-    navigation.navigate("TermsAndConditions");
+    }
   };
 
   const handleDateChange = (event, selectedDate) => {
@@ -202,12 +157,8 @@ const SignUpDetailsScreen = ({ navigation }) => {
             defaultValue={phoneNumber}
             defaultCode="GH"
             layout="first"
-            onChangeText={(text) => {
-              setPhoneNumber(text);
-            }}
-            onChangeFormattedText={(text) => {
-              setFormattedValue(text);
-            }}
+            onChangeText={setPhoneNumber}
+            onChangeFormattedText={setFormattedValue}
             withDarkTheme
             withShadow
             autoFocus
@@ -217,7 +168,7 @@ const SignUpDetailsScreen = ({ navigation }) => {
 
         <View style={styles.inputContainer}>
           <RNPickerSelect
-            onValueChange={(value) => setNationality(value)}
+            onValueChange={setNationality}
             items={[
               { label: "Ghana", value: "Ghana" },
               { label: "Nigeria", value: "Nigeria" },
@@ -234,6 +185,21 @@ const SignUpDetailsScreen = ({ navigation }) => {
               { label: "India", value: "India" },
               { label: "Russia", value: "Russia" },
               { label: "Brazil", value: "Brazil" },
+              { label: "Mexico", value: "Mexico" },
+              { label: "Argentina", value: "Argentina" },
+              { label: "Turkey", value: "Turkey" },
+              { label: "Poland", value: "Poland" },
+              { label: "Ireland", value: "Ireland" },
+              { label: "Netherlands", value: "Netherlands" },
+              { label: "Switzerland", value: "Switzerland" },
+              { label: "Belgium", value: "Belgium" },
+              { label: "Austria", value: "Austria" },
+              { label: "Portugal", value: "Portugal" },
+              { label: "Denmark", value: "Denmark" },
+              { label: "Sweden", value: "Sweden" },
+              { label: "Norway", value: "Norway" },
+              { label: "Finland", value: "Finland" },
+              { label: "Iceland", value: "Iceland" },
             ]}
             style={pickerSelectStyles}
             placeholder={{
@@ -250,9 +216,7 @@ const SignUpDetailsScreen = ({ navigation }) => {
             isChecked={acceptTerms}
             onClick={() => setAcceptTerms(!acceptTerms)}
           />
-          <Text style={styles.checkboxText}>
-            I accept the Terms and Conditions.
-          </Text>
+          <Text style={styles.checkboxText}>I accept the Terms and Conditions.</Text>
         </View>
 
         <View style={styles.checkboxContainer}>
@@ -267,18 +231,7 @@ const SignUpDetailsScreen = ({ navigation }) => {
         {loading ? (
           <ActivityIndicator size="small" color="#00527e" />
         ) : (
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() =>
-              handleAerokonnectUserSubmit(
-                firstName,
-                lastName,
-                dateOfBirth,
-                phoneNumber,
-                nationality
-              )
-            }
-          >
+          <TouchableOpacity style={styles.button} onPress={handleAerokonnectUserSubmit}>
             <Text style={styles.buttonText}>Next</Text>
           </TouchableOpacity>
         )}
