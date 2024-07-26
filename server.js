@@ -1,7 +1,6 @@
 // server.js (Node.js/Express example)
 const express = require('express');
 const { createClient } = require('@supabase/supabase-js');
-const twilio = require('twilio');
 const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -10,9 +9,6 @@ const supabaseUrl = 'https://ucusngylouypldsoltnd.supabase.co';
 const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVjdXNuZ3lsb3V5cGxkc29sdG5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTcyNjgxMDksImV4cCI6MjAzMjg0NDEwOX0.cQlMeHLv1Dd6gksfz0lO6Sd3asYfgXZrkRuCxIMnwqw';
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-const accountSid = 'ACef6725e10a77ded5d21f7998399cd37f';
-const authToken = 'bd2b84ed55741ac6d4c4e4d244852c42';
-const client = twilio(accountSid, authToken);
 
 let otps = {}; // Store OTPs with expiration times
 
