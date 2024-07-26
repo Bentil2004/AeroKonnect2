@@ -31,12 +31,12 @@ const HomeScreen = () => {
     navigation.navigate("Notification");
   };
 
-  const handleDoubleTap = (id) => {
-    setLikedItems((prevLikedItems) => ({
-      ...prevLikedItems,
-      [id]: !prevLikedItems[id],
-    }));
-  };
+  // const handleDoubleTap = (id) => {
+  //   setLikedItems((prevLikedItems) => ({
+  //     ...prevLikedItems,
+  //     [id]: !prevLikedItems[id],
+  //   }));
+  // };
 
   useEffect(() =>{
     handleSearch();
@@ -107,7 +107,7 @@ const HomeScreen = () => {
               description: place.types.join(', '), 
               price: (Math.random() * 1000).toFixed(3), 
               images: [photoUrl, photoUrl, photoUrl], 
-              todo: [{ title: "Activity 1", description: "Description 1", image: photoUrl }],
+              todo: [{ title: "Activity", description: place.types.join(', '), image: photoUrl }],
             };
           });
 

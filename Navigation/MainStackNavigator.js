@@ -54,6 +54,8 @@ import Map from "../app/Screens/Map";
 import explore from "../app/Screens/ExploreScreen/ExploreScreen";
 import explore2 from "../app/Screens/ExploreScreen/Explore2";
 //import PayStackTest from "./../app/Screens/PayStackTest";
+import AvailableFlight from "../app/Screens/AvailableFlight/AvailableFlight1";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -66,6 +68,7 @@ const MainStackNavigator = () => {
         {/* <Stack.Screen name="PaySack" component={PayStackTest} /> */}
         <Stack.Screen name="SeatSelection" component={SeatSelection} />
         <Stack.Screen name="PhoneNumberVerification" component={PhoneNumberVerificationScreen} />
+        <Stack.Screen name="AvailableFlight" component={AvailableFlight} />
         <Stack.Screen name="SignUpDetails" component={SignUpDetailsScreen} />
         <Stack.Screen name="PassengersDetails" component={PassengersDetails} />
         <Stack.Screen name="Map" component={Map} />

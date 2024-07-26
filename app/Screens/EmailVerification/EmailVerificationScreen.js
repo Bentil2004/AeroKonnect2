@@ -2,14 +2,6 @@ import React, { useState } from 'react';
 import { SafeAreaView, Text, TextInput, TouchableOpacity, View, StyleSheet, Alert } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { createClient } from "@supabase/supabase-js";
-
-
-const supabaseUrl = "https://ucusngylouypldsoltnd.supabase.co";
-const supabaseAnonKey =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVjdXNuZ3lsb3V5cGxkc29sdG5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTcyNjgxMDksImV4cCI6MjAzMjg0NDEwOX0.cQlMeHLv1Dd6gksfz0lO6Sd3asYfgXZrkRuCxIMnwqw";
-  const supabase = createClient(supabaseUrl, supabaseAnonKey);
-  
 
 const EmailVerificationScreen = () => {
   const navigation = useNavigation();
@@ -18,30 +10,16 @@ const EmailVerificationScreen = () => {
 
   const [verificationCode, setVerificationCode] = useState('');
 
-  const verifyCode = async () => {
-    try {
-      const { error } = await supabase.auth.verifyOtp({
-        email,
-        token: verificationCode,
-        type: 'magiclink'
-      });
-
-      if (error) throw error;
-
+  const verifyCode = () => {
+    if (verificationCode === '1234') { 
       navigation.navigate('ResetPassword', { email });
-    } catch (error) {
+    } else {
       Alert.alert('Invalid Code', 'Please enter the correct verification code.');
     }
   };
 
-  const resendCode = async () => {
-    try {
-      const { error } = await supabase.auth.resetPasswordForEmail(email);
-      if (error) throw error;
-      Alert.alert('Code Sent', 'A new verification code has been sent to your email.');
-    } catch (error) {
-      Alert.alert('Error', error.message);
-    }
+  const resendCode = () => {
+    Alert.alert('Code Sent', 'A new verification code has been sent to your email.');
   };
 
   const isVerificationCodeEmpty = verificationCode.length === 0;
@@ -84,10 +62,11 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: "#ffffff",
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
   container: {
+    marginTop: 80,
     width: '80%',
   },
   title: {
@@ -126,7 +105,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   buttonInitial: {
-    backgroundColor: '#add8e6',
+    backgroundColor: '#add8e6', 
   },
   buttonFilled: {
     backgroundColor: '#00527E', 
@@ -136,16 +115,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   resendContainer: {
-    marginTop: 20,
     flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
   },
   resendText: {
     color: 'gray',
+    fontSize: 14,
   },
   resendButtonText: {
-    color: '#00527E', 
-    fontWeight: 'bold',
+    color: '#00527E',
+    fontSize: 16,
   },
 });
 

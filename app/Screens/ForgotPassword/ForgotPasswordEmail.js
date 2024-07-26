@@ -4,12 +4,10 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { createClient } from "@supabase/supabase-js";
 
-
 const supabaseUrl = "https://ucusngylouypldsoltnd.supabase.co";
-const supabaseAnonKey =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVjdXNuZ3lsb3V5cGxkc29sdG5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTcyNjgxMDksImV4cCI6MjAzMjg0NDEwOX0.cQlMeHLv1Dd6gksfz0lO6Sd3asYfgXZrkRuCxIMnwqw";
-  const supabase = createClient(supabaseUrl, supabaseAnonKey);
-  
+const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVjdXNuZ3lsb3V5cGxkc29sdG5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTcyNjgxMDksImV4cCI6MjAzMjg0NDEwOX0.cQlMeHLv1Dd6gksfz0lO6Sd3asYfgXZrkRuCxIMnwqw";
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
 const ForgotPasswordEmail = () => {
   const navigation = useNavigation();
   return <ForgotPassword navigation={navigation} />;
@@ -33,7 +31,7 @@ const ForgotPassword = ({ navigation }) => {
       const { error } = await supabase.auth.resetPasswordForEmail(email);
       if (error) throw error;
       Alert.alert("Email Sent", "A password reset link has been sent to your email.");
-      navigation.navigate("EmailVerification", { email });
+      navigation.navigate("ResetPassword", { email });
     } catch (error) {
       Alert.alert("Error", error.message);
     }
@@ -64,7 +62,7 @@ const ForgotPassword = ({ navigation }) => {
         <TouchableOpacity
           style={[styles.button, isEmailEmpty ? styles.buttonInitial : styles.buttonFilled]}
           onPress={onContinuePressed}
-          disabled={isEmailEmpty} 
+          disabled={isEmailEmpty}
         >
           <Text style={styles.buttonText}>Continue</Text>
         </TouchableOpacity>

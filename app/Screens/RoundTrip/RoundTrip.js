@@ -20,6 +20,23 @@ const RoundTrip = function ({ navigation }) {
   const Multicity = function () {
     navigation.navigate('MultiCity');
   };
+  
+  const searchFlights = async () => {
+    try {
+      const response = await fetch('https://sky-scanner3.p.rapidapi.com/flights/search-one-way?fromEntityId=PARI&cabinClass=economy', {
+        method: 'GET',
+        headers: {
+          'x-rapidapi-key': '8d96448f6cmsh6976762dedf920ap10a7afjsn1d21cf7179c8',
+          'x-rapidapi-host': 'sky-scanner3.p.rapidapi.com'
+        }
+      });
+      const data = await response.json();
+      console.log(data);
+      navigation.navigate('AvailableFlight', { flights: data });
+    } catch (error) {
+      console.error('Error fetching flights:', error);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -77,7 +94,7 @@ const RoundTrip = function ({ navigation }) {
           <TextInput style={styles.textinput2} placeholder='Cabin Class' />
         </View>
         <View style={styles.row3}>
-          <Button buttonStyle={{ backgroundColor: '#00527E', borderRadius: 5, height: 49 }} title='Search Flight' />
+          <Button buttonStyle={{ backgroundColor: '#00527E', borderRadius: 5, height: 49 }} title='Search Flight'  onPress={searchFlights} />
         </View>
       </View>
     </View>

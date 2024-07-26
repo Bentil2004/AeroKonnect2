@@ -134,6 +134,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 5,
+    top : 25,
+    right : 0,
   },
   bookNowText: {
     color: "#ffffff",

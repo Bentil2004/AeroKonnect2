@@ -14,10 +14,11 @@ import CustomButton from "../../components/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import HorizontalLine from "../../components/HorizontalLine/OrDivider";
 import CustomImageButton from "../../components/CustomImageButton";
+import * as Google from "expo-auth-session/providers/google";
+import { Facebook } from "expo-auth-session";
 
 const supabaseUrl = "https://ucusngylouypldsoltnd.supabase.co";
-const supabaseAnonKey =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVjdXNuZ3lsb3V5cGxkc29sdG5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTcyNjgxMDksImV4cCI6MjAzMjg0NDEwOX0.cQlMeHLv1Dd6gksfz0lO6Sd3asYfgXZrkRuCxIMnwqw";
+const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVjdXNuZ3lsb3V5cGxkc29sdG5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTcyNjgxMDksImV4cCI6MjAzMjg0NDEwOX0.cQlMeHLv1Dd6gksfz0lO6Sd3asYfgXZrkRuCxIMnwqw";  
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 const SignUpScreen = () => {
@@ -32,6 +33,17 @@ const SignUpScreen = () => {
   const navigation = useNavigation();
   const { width, height } = useWindowDimensions();
   const isLandscape = width > height;
+
+  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
+    clientId: "173130817331-2ok5cdjopc9muhkbsvsg32svh7jqhj4b.apps.googleusercontent.com",
+  });
+
+  React.useEffect(() => {
+    if (response?.type === "success") {
+      const { id_token } = response.params;
+      signInWithGoogle(id_token);
+    }
+  }, [response]);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -81,12 +93,12 @@ const SignUpScreen = () => {
     const { user, session, error } = await supabase.auth
       .signUp({ email, password })
       .then((res) => {
-        if(res.data.user){
+        if (res.data.user) {
           console.log("User signed up:", res);
-          navigation.navigate("SignUpDetails",{
+          navigation.navigate("SignUpDetails", {
             userId: res.data.user.id,
           });
-        }else{
+        } else {
           console.log("User sign up failed:", res);
           Alert.alert("Error", "Failed to sign up");
         }
@@ -103,36 +115,63 @@ const SignUpScreen = () => {
     }
   };
 
-  const onSignInGoogle = async () => {
-    const { user, session, error } = await supabase.auth.signIn({
-      provider: "google",
-    });
-    if (error) {
-      console.error("Google login error:", error);
+  const signInWithGoogle = async (idToken) => {
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        idToken: idToken
+      });
+  
+      if (error) {
+        console.error("Google login error:", error.message);
+        Alert.alert("Error", "Failed to sign in with Google");
+      } else {
+        console.log("User logged in with Google:", data.user);
+      }
+    } catch (error) {
+      console.error("Google login error:", error.message);
       Alert.alert("Error", "Failed to sign in with Google");
-    } else {
-      console.log("User logged in with Google:", user);
-      // Navigate to the desired screen after login
     }
   };
 
+
+
+  
   const onSignInFacebook = async () => {
-    const { user, session, error } = await supabase.auth.signIn({
-      provider: "facebook",
-    });
-    if (error) {
-      console.error("Facebook login error:", error);
+    try {
+      const { type, params } = await Facebook.logInWithReadPermissionsAsync({
+        appId: 1484906945549333,
+        permissions: ['public_profile', 'email'],
+      });
+
+      if (type === 'success') {
+        const { token } = params;
+        const { data, error } = await supabase.auth.signInWithOAuth({
+          provider: 'facebook',
+          accessToken: token,
+        });
+
+        if (error) {
+          console.error("Facebook login error:", error.message);
+          Alert.alert("Error", "Failed to sign in with Facebook");
+        } else {
+          console.log("User logged in with Facebook:", data.user);
+        }
+      } else {
+        console.log('Facebook login cancelled');
+      }
+    } catch (error) {
+      console.error("Facebook login error:", error.message);
       Alert.alert("Error", "Failed to sign in with Facebook");
-    } else {
-      console.log("User logged in with Facebook:", user);
     }
   };
+  
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.root}>
         <Text style={styles.title}>
-          <Text style={styles.UpText}> Travel Around The World With Ease</Text>
+          <Text style={styles.UpText}>Travel Around The World With Ease</Text>
           {"\n"}
           Sign Up with AeroKonnect Today!
         </Text>
@@ -143,7 +182,7 @@ const SignUpScreen = () => {
             value={Email}
             onChangeText={setEmail}
             setValue={setEmail}
-            bordercolor={passwordError ? "red" : "#7D7D7D"}
+            bordercolor={emailError ? "red" : "#7D7D7D"}
             borderRadius={15}
             iconName={"mail"}
           />
@@ -169,9 +208,7 @@ const SignUpScreen = () => {
             onPress={togglePasswordVisibility}
           />
         </View>
-        {passwordError ? (
-          <Text style={styles.errorText}>{passwordError}</Text>
-        ) : null}
+        {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
 
         <View style={styles.passwordInputContainer}>
           <CustomInput
@@ -180,7 +217,7 @@ const SignUpScreen = () => {
             onChangeText={setPasswordRepeat}
             setValue={setPasswordRepeat}
             secureTextEntry={!showPasswordRepeat}
-            bordercolor={passwordError ? "red" : "#7D7D7D"}
+            bordercolor={passwordRepeatError ? "red" : "#7D7D7D"}
             borderRadius={15}
             iconName={"lock-closed"}
           />
@@ -192,9 +229,7 @@ const SignUpScreen = () => {
             onPress={togglePasswordRepeatVisibility}
           />
         </View>
-        {passwordRepeatError ? (
-          <Text style={styles.errorText}>{passwordRepeatError}</Text>
-        ) : null}
+        {passwordRepeatError ? <Text style={styles.errorText}>{passwordRepeatError}</Text> : null}
 
         <CustomButton
           text="Next"
@@ -210,7 +245,7 @@ const SignUpScreen = () => {
         style={[styles.buttonRow, isLandscape && styles.buttonRowLandscape]}
       >
         <CustomImageButton
-          onPress={onSignInGoogle}
+          onPress={() => promptAsync()}  // Trigger Google sign-in
           imageSource={require("../../assets/CustomLogoImages/Google.png")}
           bgColor={"#E4EAF1"}
           style={styles.imageButton}

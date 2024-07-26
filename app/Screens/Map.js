@@ -112,7 +112,7 @@ const Map = () => {
         </MapView>
 
         <TouchableOpacity onPress={handleBack} style={styles.backButton}>
-          <Image source={require('../assets/blackbackward.png')} />
+        <Text style={styles.Buttonback} onPress={() => navigation.navigate('BottomTab')}>←</Text>
         </TouchableOpacity>
 
         <View style={styles.searchBar}>
@@ -161,6 +161,10 @@ const styles = StyleSheet.create({
     left: 20,
     fontWeight: 'bold',
     zIndex: 1,
+  },
+  Buttonback: {
+    fontSize: 26,
+    fontWeight: 'bold',
   },
   searchBar: {
     position: 'absolute',

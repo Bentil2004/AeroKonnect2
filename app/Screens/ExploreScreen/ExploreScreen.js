@@ -104,7 +104,7 @@ const Explore = () => {
           </View>
           <View style={styles.exploreDifferentPartsOfTheParent}>
             <View>
-              <Text style={[styles.exploreDifferentParts, styles.theWorldAwaitsTypo]}>
+              <Text style={styles.exploreDifferentParts}>
                 Explore map
               </Text>
               <Text style={[styles.findYourPreferred, styles.yourTypo]}>
@@ -112,7 +112,7 @@ const Explore = () => {
               </Text>
             </View>
             <TouchableOpacity onPress={() => navigation.navigate("Map")}>
-              <Image style={styles.frameChild} resizeMode="cover" source={require("../../assets/Group 39.png")} />
+              <Image style={styles.frameChild} resizeMode="cover" source={require("../../assets/Globe.png")} />
             </TouchableOpacity>
           </View>
         </View>
@@ -122,51 +122,52 @@ const Explore = () => {
 };
 
 const styles = StyleSheet.create({
-  parentPosition: {
-    left: 0,
+  explore: {
+    flex: 1,
+    top: 10,
+  },
+  scrollContainer: {
+    paddingBottom: 20,
+  },
+  frameParent: {
+    top: 66,
+    left: 10,
     position: "absolute",
   },
-  theWorldAwaitsTypo: {
-    fontWeight: "500",
+  header: {
+    marginBottom: 20,
   },
   theWorldAwaits: {
-    lineHeight: 22,
-    width: 157,
-    textAlign: "left",
+    fontSize: 22,
+    fontWeight: 'bold',
   },
   uncoverYourNext: {
-    lineHeight: 19,
-    width: 396,
+    fontSize: 19,
   },
-  theWorldAwaitsParent: {
-    width: 350,
+  exploreDifferentPartsOfTheParent: {
+    marginTop: 34,
   },
   exploreDifferentParts: {
-    textAlign: "left",
-    marginTop: -12,
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   imageIcon: {
     width: 187,
     height: 128,
     justifyContent: "flex-end",
     overflow: "hidden",
-    flexDirection: "row",
-  },
-  tokyoJapan: {
-    textAlign: "left",
-  },
-  forFlight: {
-    textAlign: "left",
-  },
-  tokyoJapanParent: {
-    marginTop: 10,
-    alignItems: "left",
   },
   imageGroup: {
     marginLeft: 10,
   },
-  exploreDifferentPartsOfTheParent: {
-    marginTop: 34,
+  placeDetails: {
+    marginTop: 10,
+  },
+  placeName: {
+    fontWeight: 'bold',
+  },
+  placeDescription: {
+    marginTop: 5,
   },
   findYourPreferred: {
     marginTop: 5,
@@ -176,19 +177,7 @@ const styles = StyleSheet.create({
     height: 272,
     marginTop: 12,
     width: "90%",
-    borderRadius: 10,
-  },
-  frameParent: {
-    top: 66,
-    left: 10,
-    position: "absolute",
-  },
-  explore: {
-    flex: 1,
-    top: 10,
-  },
-  scrollContainer: {
-    paddingBottom: 20,
+    borderRadius: 28,
   },
 });
 
